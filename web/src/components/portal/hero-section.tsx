@@ -8,15 +8,15 @@ interface HeroSectionProps {
 export function HeroSection({ className }: HeroSectionProps) {
   return (
     <section className={cn(
-      "bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-16 px-4",
+      "bg-body-bg py-16 px-4 border-b border-section-border",
       className
     )}>
       <div className="max-w-4xl mx-auto text-center">
         {/* Welcome Text */}
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight text-hero-accent">
           Xin chào!
         </h1>
-        <p className="text-xl md:text-2xl text-primary-100 mb-8 leading-relaxed">
+        <p className="text-xl md:text-2xl text-foreground mb-8 leading-relaxed">
           Chúng tôi có thể giúp gì cho bạn?
         </p>
 
@@ -30,7 +30,7 @@ export function HeroSection({ className }: HeroSectionProps) {
               style={{ minHeight: 'var(--spacing-touch-lg)' }}
             />
             <button
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 p-3 text-muted-foreground hover:text-primary-600 transition-colors cursor-pointer"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 p-3 text-muted-foreground hover:text-hero-accent transition-colors cursor-pointer"
               style={{ minHeight: 'var(--spacing-touch)', minWidth: 'var(--spacing-touch)' }}
               aria-label="Tìm kiếm"
             >
@@ -40,16 +40,16 @@ export function HeroSection({ className }: HeroSectionProps) {
 
           {/* Search suggestions */}
           <div className="mt-4 flex flex-wrap gap-2 justify-center">
-            <span className="text-sm text-primary-200">Tìm kiếm phổ biến:</span>
-            <button className="text-sm text-white hover:text-gov-gold underline cursor-pointer">
+            <span className="text-sm text-muted-foreground">Tìm kiếm phổ biến:</span>
+            <button className="text-sm text-foreground hover:text-hero-accent underline cursor-pointer">
               Giấy khai sinh
             </button>
-            <span className="text-primary-300">•</span>
-            <button className="text-sm text-white hover:text-gov-gold underline cursor-pointer">
+            <span className="text-muted-foreground">•</span>
+            <button className="text-sm text-foreground hover:text-hero-accent underline cursor-pointer">
               Hộ khẩu
             </button>
-            <span className="text-primary-300">•</span>
-            <button className="text-sm text-white hover:text-gov-gold underline cursor-pointer">
+            <span className="text-muted-foreground">•</span>
+            <button className="text-sm text-foreground hover:text-hero-accent underline cursor-pointer">
               Đất đai
             </button>
           </div>

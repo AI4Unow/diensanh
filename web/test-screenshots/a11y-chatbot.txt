@@ -1,0 +1,3 @@
+- link [ref=e1]
+- textbox "Nhập câu hỏi của bạn..." [ref=e2]
+- button [ref=e3] [disabled]

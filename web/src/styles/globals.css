@@ -53,9 +53,22 @@
   /* Government accent colors */
   --color-gov-red: oklch(55% 0.18 25); /* #DA251D - Official red */
   --color-gov-gold: oklch(85% 0.20 85); /* #FFCD00 - ACTUAL GOLD */
+  --color-banner-red: oklch(55% 0.20 25); /* #D32F2F - main title accent */
+  --color-banner-navy: oklch(25% 0.12 260); /* #1A237E - subtitle */
+  --color-banner-sky: oklch(70% 0.12 220); /* #29B6F6 - sky blue */
   --color-gov-blue: oklch(40% 0.10 240); /* Alias for primary-600 */
   --color-gov-blue-light: oklch(97% 0.01 240); /* Light blue backgrounds */
   --color-gov-blue-dark: oklch(25% 0.08 240); /* Dark blue hover */
+
+  /* Body and section backgrounds - Gov standard */
+  --color-body-bg: oklch(97% 0 0); /* #F5F5F5 - light gray */
+  --color-section-light: oklch(99% 0 0); /* #FAFAFA */
+  --color-section-border: oklch(90% 0 0); /* #E0E0E0 */
+
+  /* Hero section - light theme variant */
+  --color-hero-bg: oklch(97% 0.01 240); /* Light blue-gray */
+  --color-hero-text: oklch(25% 0.08 240); /* Dark text */
+  --color-hero-accent: oklch(25% 0.12 260); /* #1A237E Navy accent - validated */
 
   /* Touch target spacing tokens for elderly users */
   --spacing-touch: 48px; /* Minimum touch target size */
@@ -280,6 +293,14 @@ img[loading="lazy"]:not([src=""]) {
     to bottom,
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.6) 100%
+  );
+}
+
+.gradient-hero-light {
+  background: linear-gradient(
+    to bottom,
+    oklch(97% 0 0) 0%,
+    oklch(95% 0.01 240) 100%
   );
 }
 

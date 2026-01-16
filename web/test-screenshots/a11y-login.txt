@@ -1,0 +1,2 @@
+- textbox "Số điện thoại" [ref=e1]
+- button "Nhận mã OTP" [ref=e2] [disabled]

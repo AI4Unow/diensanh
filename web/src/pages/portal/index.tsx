@@ -12,7 +12,7 @@ export function PortalHomePage() {
       <HeroSection />
 
       {/* Primary actions - 2x2 grid on mobile, 4-column on desktop */}
-      <section className="px-4 -mt-8 relative z-10">
+      <section className="px-4 -mt-8 relative z-10 pb-8">
         <div className="max-w-4xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4">
           <QuickAccessCard
             icon={<Bell className="w-12 h-12" />}
