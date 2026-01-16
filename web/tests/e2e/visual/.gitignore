@@ -1,0 +1,6 @@
+# Visual regression test artifacts
+current/
+diffs/
+
+# Keep baselines in version control
+!baselines/

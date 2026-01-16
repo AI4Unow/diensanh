@@ -7,7 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "bash tests/e2e/scripts/run-all.sh",
+    "test:e2e:local": "bash tests/e2e/scripts/run-local.sh",
+    "test:visual": "bash tests/e2e/visual/check-regression.sh",
+    "test:visual:update": "bash tests/e2e/visual/update-baselines.sh"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.17",

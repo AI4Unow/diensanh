@@ -1,0 +1,70 @@
+name: E2E Tests
+
+on:
+  pull_request:
+    paths:
+      - 'web/**'
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+
+env:
+  BASE_URL: ${{ github.event_name == 'pull_request' && format('https://{0}.vercel.app', github.event.pull_request.head.sha) || 'https://diensanh.vercel.app' }}
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          npm install -g agent-browser
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+
+      - name: Wait for deployment
+        if: github.event_name == 'pull_request'
+        run: |
+          echo "Waiting for Vercel preview deployment..."
+          sleep 60  # Adjust based on deploy time
+          curl -sf "$BASE_URL" || (echo "Deployment not ready" && exit 1)
+
+      - name: Start Firebase emulators
+        run: |
+          npm install -g firebase-tools
+          firebase emulators:start --only auth &
+          sleep 10
+
+      - name: Run E2E tests
+        run: |
+          cd web/tests/e2e
+          bash scripts/run-all.sh
+        env:
+          BASE_URL: ${{ env.BASE_URL }}
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-screenshots
+          path: web/tests/e2e/screenshots/
+          retention-days: 7
+
+      - name: Upload visual diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-diffs
+          path: web/tests/e2e/visual/diffs/
+          retention-days: 7

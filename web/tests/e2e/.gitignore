@@ -1,0 +1,10 @@
+# Exclude session files (may contain auth tokens)
+sessions/*.json
+
+# Exclude screenshots (test artifacts)
+screenshots/*.png
+screenshots/*.jpg
+
+# Keep directory structure
+!sessions/.gitkeep
+!screenshots/.gitkeep
