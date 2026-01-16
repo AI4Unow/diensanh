@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 import { GovernmentHeader } from "./government-header"
 import { GovernmentFooter } from "./government-footer"
 import { Breadcrumb } from "./breadcrumb"
+import { CommuneBanner } from "./commune-banner"
 import { SkipLink } from "@/components/a11y/skip-link"
 import { cn } from "@/lib/utils"
 
@@ -29,6 +30,9 @@ export function PortalLayout({
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <SkipLink />
+
+      {/* Commune Banner */}
+      <CommuneBanner />
 
       {/* Government Header */}
       <header role="banner">
