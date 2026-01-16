@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import { useAuth } from '@/hooks/use-auth'
 import { cn } from '@/lib/utils'
+import { NationalEmblem } from '@/components/ui/national-emblem'
 
 interface SidebarProps {
   open: boolean
@@ -73,8 +74,8 @@ export function Sidebar({ open, onToggle, mobileOpen, onMobileClose }: SidebarPr
         {/* Header */}
         <div className="flex items-center justify-between h-16 px-4 border-b">
           <div className="flex items-center gap-2 overflow-hidden">
-            <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-white font-bold text-sm">DS</span>
+            <div className="flex-shrink-0">
+              <NationalEmblem size={open || mobileOpen ? "md" : "sm"} />
             </div>
             {(open || mobileOpen) && (
               <span className="font-semibold text-sm whitespace-nowrap">
@@ -117,17 +118,22 @@ export function Sidebar({ open, onToggle, mobileOpen, onMobileClose }: SidebarPr
                 onClick={onMobileClose}
                 className={cn(
                   'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
-                  'hover:bg-muted',
+                  'hover:bg-muted cursor-pointer',
                   'focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
                   isActive && 'bg-primary-50 text-primary-700 font-medium',
                   !open && !mobileOpen && 'justify-center'
                 )}
+                style={{ minHeight: 'var(--spacing-touch)' }}
                 title={!open && !mobileOpen ? item.label : undefined}
               >
                 <Icon className={cn('w-5 h-5 flex-shrink-0', isActive && 'text-primary-600')} />
-                {(open || mobileOpen) && (
-                  <span className="truncate">{item.label}</span>
-                )}
+                {/* Always show text for accessibility, hide visually when collapsed */}
+                <span className={cn(
+                  'truncate',
+                  !open && !mobileOpen && 'sr-only'
+                )}>
+                  {item.label}
+                </span>
               </NavLink>
             )
           })}

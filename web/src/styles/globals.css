@@ -7,17 +7,28 @@
   --line-height-base: 1.6;
   --line-height-tight: 1.4;
 
-  /* Primary colors - Vietnamese government blue */
-  --color-primary-50: #eff6ff;
-  --color-primary-100: #dbeafe;
-  --color-primary-200: #bfdbfe;
-  --color-primary-300: #93c5fd;
-  --color-primary-400: #60a5fa;
-  --color-primary-500: #3b82f6;
-  --color-primary-600: #2563eb;
-  --color-primary-700: oklch(60% 0.2 250);
-  --color-primary-800: #1e40af;
-  --color-primary-900: #1e3a8a;
+  /* Primary colors - Vietnamese government blue #004A99 */
+  --color-primary-50: oklch(96% 0.02 250);
+  --color-primary-100: oklch(92% 0.04 250);
+  --color-primary-200: oklch(85% 0.08 250);
+  --color-primary-300: oklch(75% 0.12 250);
+  --color-primary-400: oklch(65% 0.16 250);
+  --color-primary-500: oklch(55% 0.20 250);
+  --color-primary-600: oklch(45% 0.24 250); /* #004A99 - Official Government Blue */
+  --color-primary-700: oklch(40% 0.22 250);
+  --color-primary-800: oklch(35% 0.20 250);
+  --color-primary-900: oklch(25% 0.18 250);
+
+  /* Government accent colors */
+  --color-gov-red: oklch(55% 0.22 27); /* #DA251D - Official red */
+  --color-gov-gold: oklch(88% 0.17 95); /* #FFCD00 - Official gold */
+  --color-gov-blue-light: oklch(96% 0.02 250); /* Light blue backgrounds */
+  --color-gov-blue-dark: oklch(30% 0.20 250); /* #003366 - Dark blue hover */
+
+  /* Touch target spacing tokens for elderly users */
+  --spacing-touch: 48px; /* Minimum touch target size */
+  --spacing-touch-lg: 56px; /* Optimal touch target for elderly */
+  --spacing-touch-gap: 8px; /* Minimum gap between touch targets */
 
   /* Semantic colors */
   --color-background: #ffffff;
@@ -51,7 +62,7 @@
   --color-info-foreground: #ffffff;
 
   /* Primary CTA - government authoritative blue */
-  --color-primary-cta: oklch(60% 0.2 250);
+  --color-primary-cta: oklch(45% 0.24 250); /* Updated to match primary-600 */
 
   /* Border radius */
   --radius-sm: 0.25rem;
@@ -142,16 +153,16 @@ button:disabled,
   cursor: not-allowed;
 }
 
-/* Focus styles */
+/* Focus styles - Enhanced for accessibility */
 :focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-ring), 0 0 0 4px var(--color-background);
+  box-shadow: 0 0 0 4px var(--color-gov-gold), 0 0 0 6px var(--color-background);
 }
 
 /* Tailwind focus-visible utility override */
 .focus-visible\:ring-2:focus-visible {
-  --tw-ring-offset-width: 2px;
-  --tw-ring-color: var(--color-primary-500);
+  --tw-ring-offset-width: 4px;
+  --tw-ring-color: var(--color-gov-gold);
 }
 
 /* Lazy loading for images */
@@ -182,4 +193,35 @@ img[loading="lazy"]:not([src=""]) {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-foreground);
+}
+
+/* High-contrast mode support */
+@media (prefers-contrast: more) {
+  @theme {
+    --color-background: #000000;
+    --color-foreground: #FFFFFF;
+    --color-primary-600: var(--color-gov-gold); /* Gold for high visibility */
+    --color-primary-cta: var(--color-gov-gold);
+    --color-border: #FFFFFF;
+    --color-muted: #333333;
+    --color-muted-foreground: #CCCCCC;
+  }
+}
+
+/* Forced colors mode (Windows High Contrast) */
+@media (forced-colors: active) {
+  * {
+    forced-color-adjust: auto;
+  }
+
+  :focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+}
+
+/* Safe area utility for mobile devices */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }

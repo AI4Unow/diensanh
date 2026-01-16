@@ -12,14 +12,13 @@ interface StatsCardProps {
 
 function StatsCardSkeleton() {
   return (
-    <div className="bg-card rounded-xl border p-5 shadow-sm">
-      <div className="flex items-center justify-between">
-        <div className="h-4 w-20 bg-muted rounded animate-pulse" />
-        <div className="w-10 h-10 bg-primary-50 rounded-lg animate-pulse" />
-      </div>
-      <div className="mt-3 space-y-2">
-        <div className="h-8 w-16 bg-muted rounded animate-pulse" />
-        <div className="h-4 w-28 bg-muted rounded animate-pulse" />
+    <div className="bg-card rounded-xl border-l-4 border-l-gov-blue p-6 shadow-sm min-h-[120px]">
+      <div className="flex items-start justify-between">
+        <div className="flex-1">
+          <div className="h-4 w-20 bg-muted rounded animate-pulse" />
+          <div className="h-10 w-16 bg-muted rounded animate-pulse mt-3" />
+        </div>
+        <div className="w-12 h-12 bg-gov-blue-light rounded-lg animate-pulse" />
       </div>
     </div>
   )
@@ -30,28 +29,32 @@ export function StatsCard({ title, value, icon, trend, loading, className }: Sta
 
   return (
     <div className={cn(
-      'bg-card rounded-xl border p-5 shadow-sm',
+      'bg-card rounded-xl border-l-4 border-l-primary-600 p-6 shadow-sm min-h-[120px]',
       'transition-all duration-200',
-      'hover:shadow-md hover:border-primary-200',
+      'hover:shadow-md hover:border-l-primary-700',
       className
     )}>
-      <div className="flex items-center justify-between">
-        <div className="text-sm font-medium text-muted-foreground">{title}</div>
-        <div className="p-2.5 bg-primary-50 text-primary-600 rounded-lg">{icon}</div>
-      </div>
-      <div className="mt-3">
-        <div className="text-2xl font-bold">{value.toLocaleString('vi-VN')}</div>
-        {trend && (
-          <div
-            className={cn(
-              'text-sm mt-1',
-              trend.isPositive ? 'text-green-600' : 'text-red-600'
-            )}
-          >
-            {trend.isPositive ? '+' : ''}
-            {trend.value}% so với tháng trước
+      <div className="flex items-start justify-between">
+        <div className="flex-1">
+          <div className="text-base font-medium text-muted-foreground">{title}</div>
+          <div className="text-4xl font-bold text-foreground mt-2">
+            {value.toLocaleString('vi-VN')}
           </div>
-        )}
+          {trend && (
+            <div
+              className={cn(
+                'text-sm mt-2',
+                trend.isPositive ? 'text-green-600' : 'text-red-600'
+              )}
+            >
+              {trend.isPositive ? '+' : ''}
+              {trend.value}% so với tháng trước
+            </div>
+          )}
+        </div>
+        <div className="p-3 bg-gov-blue-light text-primary-600 rounded-lg">
+          {icon}
+        </div>
       </div>
     </div>
   )

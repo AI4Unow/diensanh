@@ -35,7 +35,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gov-blue-light to-white p-4">
       <LoginForm onSuccess={handleSuccess} />
     </div>
   )

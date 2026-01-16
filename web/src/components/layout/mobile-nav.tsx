@@ -25,8 +25,8 @@ export function MobileNav() {
   const menu = userDoc?.role === 'commune_admin' ? adminMobileMenu : villageMobileMenu
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-card border-t lg:hidden">
-      <div className="flex items-center justify-around h-16">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-card border-t pb-safe lg:hidden">
+      <div className="flex items-stretch justify-around h-[72px] max-w-md mx-auto">
         {menu.map((item) => {
           const Icon = item.icon
           const isActive = location.pathname === item.path ||
@@ -37,13 +37,18 @@ export function MobileNav() {
               key={item.path}
               to={item.path}
               className={cn(
-                'flex flex-col items-center justify-center gap-1 px-3 py-2 min-w-[64px]',
-                'transition-colors',
+                'flex flex-col items-center justify-center flex-1 gap-1 relative',
+                'min-h-[56px] transition-colors duration-200 cursor-pointer',
                 isActive ? 'text-primary-600' : 'text-muted-foreground'
               )}
+              style={{ minHeight: 'var(--spacing-touch-lg)' }}
             >
-              <Icon className="w-5 h-5" />
-              <span className="text-xs">{item.label}</span>
+              {/* Active indicator bar */}
+              {isActive && (
+                <span className="absolute top-0 left-1/4 right-1/4 h-1 bg-primary-600 rounded-b" />
+              )}
+              <Icon className="w-6 h-6" />
+              <span className="text-sm font-medium">{item.label}</span>
             </NavLink>
           )
         })}
