@@ -21,7 +21,7 @@
 
   /* Government accent colors */
   --color-gov-red: oklch(55% 0.22 27); /* #DA251D - Official red */
-  --color-gov-gold: oklch(88% 0.17 95); /* #FFCD00 - Official gold */
+  --color-gov-gold: oklch(48% 0.19 27); /* #D42131 - Changed to red (similar to quoc huy) */
   --color-gov-blue-light: oklch(96% 0.02 250); /* Light blue backgrounds */
   --color-gov-blue-dark: oklch(30% 0.20 250); /* #003366 - Dark blue hover */
 

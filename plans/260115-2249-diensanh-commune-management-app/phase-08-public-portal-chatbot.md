@@ -150,7 +150,7 @@ export function PortalHeader() {
             <div>
               <div className="font-bold">UBND Xã Diên Sanh</div>
               <div className="text-xs text-primary-foreground/70">
-                Huyện Hải Lăng, Tỉnh Quảng Trị
+                Tỉnh Quảng Trị
               </div>
             </div>
           </Link>
@@ -199,7 +199,7 @@ export function PortalHomePage() {
             Chào mừng đến với Cổng thông tin Xã Diên Sanh
           </h1>
           <p className="text-lg text-white/80 mb-8">
-            Huyện Hải Lăng, Tỉnh Quảng Trị
+            Tỉnh Quảng Trị
           </p>
           <div className="flex justify-center gap-4">
             <Button asChild size="lg" variant="secondary">

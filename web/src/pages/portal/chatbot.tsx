@@ -14,7 +14,7 @@ interface Message {
 const faqResponses: Record<string, string> = {
   'xin chào': 'Xin chào! Tôi là trợ lý ảo của UBND xã Diên Sanh. Tôi có thể giúp bạn:\n- Hướng dẫn thủ tục hành chính\n- Tra cứu thông tin liên hệ\n- Giải đáp thắc mắc chung\n\nBạn cần hỗ trợ gì?',
   'giờ làm việc': 'Giờ làm việc của UBND xã Diên Sanh:\n- Thứ 2 đến Thứ 6\n- Sáng: 7:30 - 11:30\n- Chiều: 13:30 - 17:00\n\nNghỉ thứ 7, Chủ nhật và các ngày lễ.',
-  'địa chỉ': 'Địa chỉ: UBND xã Diên Sanh, Huyện Hải Lăng, Tỉnh Quảng Trị.\n\nĐiện thoại: 0233.xxx.xxx\nEmail: ubnd.diensanh@quangtri.gov.vn',
+  'địa chỉ': 'Địa chỉ: UBND xã Diên Sanh, Tỉnh Quảng Trị.\n\nĐiện thoại: 0233.xxx.xxx\nEmail: ubnd.diensanh@quangtri.gov.vn',
   'xác nhận cư trú': 'Để xin giấy xác nhận cư trú, bạn cần:\n1. CMND/CCCD bản gốc\n2. Sổ hộ khẩu bản gốc\n3. Đơn xin xác nhận (có mẫu tại UBND xã)\n\nThời gian giải quyết: 1-2 ngày làm việc.\nLệ phí: Miễn phí.',
   'đăng ký kết hôn': 'Thủ tục đăng ký kết hôn:\n1. Tờ khai đăng ký kết hôn (theo mẫu)\n2. CMND/CCCD của hai bên\n3. Giấy xác nhận tình trạng hôn nhân\n\nThời gian: 3-5 ngày làm việc.\nLệ phí: Theo quy định.',
   'khai sinh': 'Thủ tục đăng ký khai sinh:\n1. Giấy chứng sinh (từ bệnh viện)\n2. CMND/CCCD của cha mẹ\n3. Sổ hộ khẩu\n4. Giấy đăng ký kết hôn (nếu có)\n\nThời gian: 1-2 ngày làm việc.\nLệ phí: Miễn phí.',

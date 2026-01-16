@@ -123,3 +123,4 @@ storybook-static
 # Temporary folders
 tmp/
 temp/
+.env*.local

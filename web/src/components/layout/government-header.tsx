@@ -27,7 +27,7 @@ export function GovernmentHeader({
                 UBND XÃ DIÊN SANH
               </h1>
               <p className="text-sm text-muted-foreground">
-                Huyện Hải Lăng - Tỉnh Quảng Trị
+                Tỉnh Quảng Trị
               </p>
             </div>
           </div>

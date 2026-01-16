@@ -25,7 +25,7 @@ export function ContactInfoCard({ className }: ContactInfoCardProps) {
             <span className="text-base font-medium text-muted-foreground">Địa chỉ:</span>
             <p className="text-lg text-foreground mt-1 leading-relaxed">
               UBND Xã Diên Sanh<br />
-              Huyện Hải Lăng, Tỉnh Quảng Trị
+              Tỉnh Quảng Trị
             </p>
           </div>
         </div>

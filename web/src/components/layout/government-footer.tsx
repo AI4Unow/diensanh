@@ -20,7 +20,7 @@ export function GovernmentFooter({ className }: GovernmentFooterProps) {
               <p>
                 <strong>Địa chỉ:</strong><br />
                 UBND Xã Diên Sanh<br />
-                Huyện Hải Lăng, Tỉnh Quảng Trị
+                Tỉnh Quảng Trị
               </p>
               <p>
                 <strong>Điện thoại:</strong> (0233) 123.456
@@ -105,15 +105,6 @@ export function GovernmentFooter({ className }: GovernmentFooterProps) {
                 style={{ minHeight: 'var(--spacing-touch)' }}
               >
                 UBND Tỉnh Quảng Trị
-              </a>
-              <a
-                href="https://hailang.quangtri.gov.vn"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block text-sm text-muted-foreground hover:text-primary-600 transition-colors cursor-pointer"
-                style={{ minHeight: 'var(--spacing-touch)' }}
-              >
-                UBND Huyện Hải Lăng
               </a>
             </div>
           </div>

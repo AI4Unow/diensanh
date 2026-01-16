@@ -94,7 +94,7 @@ class HealthResponse(BaseModel):
 
 
 # System prompt for the chatbot
-SYSTEM_PROMPT = """Bạn là trợ lý ảo của UBND xã Diên Sanh, huyện Hải Lăng, tỉnh Quảng Trị.
+SYSTEM_PROMPT = """Bạn là trợ lý ảo của UBND xã Diên Sanh, tỉnh Quảng Trị.
 Nhiệm vụ của bạn là hỗ trợ người dân tìm hiểu thông tin về:
 - Các thủ tục hành chính công (đăng ký khai sinh, kết hôn, cấp giấy tờ, v.v.)
 - Thông tin về UBND xã và các cơ quan liên quan

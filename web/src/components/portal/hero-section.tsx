@@ -1,5 +1,4 @@
 import { Search } from 'lucide-react'
-import { NationalEmblem } from '@/components/ui/national-emblem'
 import { cn } from '@/lib/utils'
 
 interface HeroSectionProps {
@@ -13,11 +12,6 @@ export function HeroSection({ className }: HeroSectionProps) {
       className
     )}>
       <div className="max-w-4xl mx-auto text-center">
-        {/* National Emblem */}
-        <div className="flex justify-center mb-6">
-          <NationalEmblem size="xl" className="filter brightness-0 invert" />
-        </div>
-
         {/* Welcome Text */}
         <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
           Xin chào!
