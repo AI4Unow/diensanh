@@ -17,7 +17,7 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
-  /* Line height tokens for Vietnamese text */
+  /* Line height tokens */
   --line-height-tight: 1.4;
   --line-height-base: 1.6;
   --line-height-relaxed: 1.8;
@@ -27,13 +27,13 @@
   --letter-spacing-normal: 0;
   --letter-spacing-wide: 0.02em;
 
-  /* Text color tokens - High contrast for elderly users */
-  --color-text-primary: oklch(20% 0.06 240);
-  /* Deep Navy/Black #1A1F36 */
-  --color-text-secondary: oklch(25% 0.04 240);
-  /* Dark Slate #1E293B */
-  --color-text-disabled: oklch(50% 0.02 240);
-  /* Mid-Dark Grey #64748B */
+  /* Text color tokens - FORCED HIGH CONTRAST */
+  --color-text-primary: #000000;
+  /* Pure Black */
+  --color-text-secondary: #1a1a1a;
+  /* Almost Black */
+  --color-text-disabled: #525252;
+  /* Dark Grey */
 
   /* Shadow tokens */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -41,111 +41,89 @@
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
 
-  /* Primary colors - Navy blue #1E3A8A to match target website */
+  /* Primary colors - Navy blue #1E3A8A */
   --color-primary-50: oklch(97% 0.01 240);
   --color-primary-100: oklch(93% 0.02 240);
   --color-primary-200: oklch(87% 0.04 240);
   --color-primary-300: oklch(75% 0.06 240);
   --color-primary-400: oklch(65% 0.08 240);
   --color-primary-500: oklch(55% 0.12 240);
-  /* #1e40af */
   --color-primary-600: oklch(40% 0.10 240);
-  /* #1e3a8a - MAIN BRAND COLOR */
   --color-primary-700: oklch(35% 0.09 240);
   --color-primary-800: oklch(30% 0.08 240);
   --color-primary-900: oklch(25% 0.08 240);
-  /* #0f172a */
 
   /* Government accent colors */
-  --color-gov-red: oklch(55% 0.18 25);
-  /* #DA251D - Official red */
-  --color-gov-gold: oklch(85% 0.20 85);
-  /* #FFCD00 - ACTUAL GOLD */
-  --color-banner-red: oklch(55% 0.20 25);
-  /* #D32F2F - main title accent */
-  --color-banner-navy: oklch(25% 0.12 260);
-  /* #1A237E - subtitle */
-  --color-banner-sky: oklch(70% 0.12 220);
-  /* #29B6F6 - sky blue */
-  --color-gov-blue: oklch(40% 0.10 240);
-  /* Alias for primary-600 */
-  --color-gov-blue-light: oklch(97% 0.01 240);
-  /* Light blue backgrounds */
-  --color-gov-blue-dark: oklch(25% 0.08 240);
-  /* Dark blue hover */
+  --color-gov-red: #DA251D;
+  --color-gov-gold: #FFCD00;
+  --color-banner-red: #D32F2F;
+  --color-banner-navy: #1A237E;
+  --color-banner-sky: #29B6F6;
+  --color-gov-blue: #1E3A8A;
+  --color-gov-blue-light: #F5F9FF;
+  --color-gov-blue-dark: #102046;
 
-  /* Body and section backgrounds - Gov standard */
-  --color-body-bg: oklch(97% 0 0);
-  /* #F5F5F5 - light gray */
-  --color-section-light: oklch(99% 0 0);
-  /* #FAFAFA */
-  --color-section-border: oklch(90% 0 0);
-  /* #E0E0E0 */
+  /* Body and section backgrounds */
+  --color-body-bg: #FFFFFF;
+  --color-section-light: #F8F9FA;
+  --color-section-border: #E5E7EB;
 
-  /* Hero section - light theme variant */
-  --color-hero-bg: oklch(97% 0.01 240);
-  /* Light blue-gray */
-  --color-hero-text: oklch(20% 0.06 240);
-  /* High contrast dark text */
-  --color-hero-accent: oklch(25% 0.12 260);
-  /* #1A237E Navy accent - validated */
+  /* Hero section */
+  --color-hero-bg: #F0F4F8;
+  --color-hero-text: #000000;
+  --color-hero-accent: #1A237E;
 
-  /* Touch target spacing tokens for elderly users */
+  /* Touch target spacing */
   --spacing-touch: 48px;
-  /* Minimum touch target size */
   --spacing-touch-lg: 56px;
-  /* Optimal touch target for elderly */
   --spacing-touch-gap: 8px;
-  /* Minimum gap between touch targets */
 
-  /* Semantic colors */
+  /* Semantic colors - MAPPED TO DARK VALUES */
   --color-background: #ffffff;
-  --color-foreground: #0f172a;
-  --color-muted: oklch(96% 0.01 240);
-  /* Very light grey for backgrounds */
+  --color-foreground: #000000;
+  /* Black */
+  --color-muted: #f1f5f9;
   --color-muted-foreground: #334155;
-  /* Slate 700 - WCAG AAA Compliant */
+  /* Slate 700 (Dark) */
   --color-border: #e2e8f0;
   --color-input: #e2e8f0;
   --color-ring: #3b82f6;
 
   /* Component colors */
   --color-card: #ffffff;
-  --color-card-foreground: #0f172a;
+  --color-card-foreground: #000000;
   --color-popover: #ffffff;
-  --color-popover-foreground: #0f172a;
+  --color-popover-foreground: #000000;
   --color-secondary: #f1f5f9;
-  --color-secondary-foreground: #0f172a;
+  --color-secondary-foreground: #000000;
   --color-accent: #f1f5f9;
-  --color-accent-foreground: #0f172a;
+  --color-accent-foreground: #000000;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
 
-  /* Status colors - WCAG AAA compliant */
-  --color-success: oklch(60% 0.15 145);
+  /* Status colors */
+  --color-success: #166534;
+  /* Dark green for text safety */
   --color-success-foreground: #ffffff;
-  --color-warning: oklch(65% 0.14 85);
+  --color-warning: #854d0e;
+  /* Dark yellow/brown */
   --color-warning-foreground: #ffffff;
-  --color-error: oklch(55% 0.18 25);
+  --color-error: #991b1b;
+  /* Dark red */
   --color-error-foreground: #ffffff;
-  --color-info: oklch(60% 0.12 240);
+  --color-info: #075985;
+  /* Dark blue */
   --color-info-foreground: #ffffff;
 
   /* Border radius */
   --radius-sm: 0.25rem;
-  /* 4px */
   --radius-md: 0.5rem;
-  /* 8px - buttons, inputs */
   --radius-lg: 0.75rem;
-  /* 12px - cards */
   --radius-xl: 1rem;
-  /* 16px - containers */
   --radius-full: 9999px;
-  /* Pills, avatars */
 }
 
-/* Dark mode */
-/* Dark mode removed to force standard government portal light theme */
+/* NO DARK MODE overrides - Strictly Light Mode */
 
 /* Base styles */
 html {
@@ -187,7 +165,7 @@ select {
   cursor: pointer;
 }
 
-/* Text input elements should have text cursor */
+/* Text input elements */
 input[type="text"],
 input[type="email"],
 input[type="tel"],
@@ -207,28 +185,22 @@ button:disabled,
   cursor: not-allowed;
 }
 
-/* Focus styles - Enhanced for accessibility */
+/* Focus styles */
 :focus-visible {
   outline: 2px solid oklch(55% 0.12 240);
-  /* primary-500 */
   outline-offset: 2px;
 }
 
-/* Gold focus ring for special elements */
 .focus-ring-gold:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 4px oklch(85% 0.20 85 / 0.3);
-  /* gov-gold 30% */
+  box-shadow: 0 0 0 4px rgba(255, 205, 0, 0.3);
 }
 
-/* Tailwind focus-visible utility override */
 .focus-visible\:ring-2:focus-visible {
   --tw-ring-offset-width: 4px;
-  --tw-ring-color: oklch(85% 0.20 85 / 0.3);
-  /* gov-gold 30% */
+  --tw-ring-color: rgba(255, 205, 0, 0.3);
 }
 
-/* Lazy loading for images */
 img[loading="lazy"] {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
@@ -258,34 +230,7 @@ img[loading="lazy"]:not([src=""]) {
   background: var(--color-foreground);
 }
 
-/* High-contrast mode support */
-@media (prefers-contrast: more) {
-  @theme {
-    --color-background: #000000;
-    --color-foreground: #FFFFFF;
-    --color-primary-600: var(--color-gov-gold);
-    /* Gold for high visibility */
-    --color-primary-cta: var(--color-gov-gold);
-    --color-border: #FFFFFF;
-    --color-muted: #333333;
-    --color-muted-foreground: #CCCCCC;
-  }
-}
-
-/* Forced colors mode (Windows High Contrast) */
-@media (forced-colors: active) {
-  * {
-    forced-color-adjust: auto;
-  }
-
-  :focus-visible {
-    outline: 2px solid Highlight;
-    outline-offset: 2px;
-    box-shadow: none;
-  }
-}
-
-/* Safe area utility for mobile devices */
+/* Safe area utility */
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -297,25 +242,6 @@ img[loading="lazy"]:not([src=""]) {
 
 .min-h-touch-lg {
   min-height: var(--spacing-touch-lg);
-}
-
-/* Gradient utilities - use sparingly */
-.gradient-primary {
-  background: linear-gradient(135deg,
-      oklch(40% 0.10 240) 0%,
-      oklch(55% 0.12 240) 100%);
-}
-
-.gradient-overlay {
-  background: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.6) 100%);
-}
-
-.gradient-hero-light {
-  background: linear-gradient(to bottom,
-      oklch(97% 0 0) 0%,
-      oklch(95% 0.01 240) 100%);
 }
 
 /* Card hover effects */
