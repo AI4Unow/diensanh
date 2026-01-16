@@ -1,4 +1,4 @@
-import { ChevronRightIcon, HomeIcon } from "@heroicons/react/24/outline"
+import { ChevronRight, Home } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface BreadcrumbItem {
@@ -24,7 +24,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
               className="text-muted-foreground hover:text-primary-600 transition-colors cursor-pointer flex items-center space-x-1"
               style={{ minHeight: 'var(--spacing-touch)' }}
             >
-              <HomeIcon className="w-5 h-5" />
+              <Home className="w-5 h-5" />
               <span className="text-sm font-medium">Trang chủ</span>
             </a>
           </div>
@@ -34,7 +34,7 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
         {items.map((item, index) => (
           <li key={index}>
             <div className="flex items-center">
-              <ChevronRightIcon className="w-4 h-4 text-muted-foreground mx-2" />
+              <ChevronRight className="w-4 h-4 text-muted-foreground mx-2" />
               {item.href && !item.current ? (
                 <a
                   href={item.href}

@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import type { ReactNode } from "react"
 import { GovernmentHeader } from "./government-header"
 import { GovernmentFooter } from "./government-footer"
 import { Breadcrumb } from "./breadcrumb"
