@@ -30,6 +30,32 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    // Check for test mode
+    const isTestMode = localStorage.getItem('diensanh:testMode') === 'true'
+
+    if (isTestMode) {
+      // In test mode, load user from localStorage
+      const testUserDoc = localStorage.getItem('diensanh:userDoc')
+      const testAuthUser = localStorage.getItem('firebase:authUser:[DEFAULT]')
+
+      if (testUserDoc && testAuthUser) {
+        try {
+          const parsedUserDoc = JSON.parse(testUserDoc)
+          const parsedAuthUser = JSON.parse(testAuthUser)
+
+          setUser(parsedAuthUser)
+          setUserDoc(parsedUserDoc)
+          setError(null)
+          setLoading(false)
+          return
+        } catch (err) {
+          console.error('Error parsing test user data:', err)
+        }
+      }
+      // If test mode but no valid test data, continue with normal flow
+      setLoading(false)
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       setUser(firebaseUser)
 

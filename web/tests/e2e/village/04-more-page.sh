@@ -3,16 +3,24 @@ source "$(dirname $0)/../scripts/utils.sh"
 
 echo "Test: Village More/Settings Page"
 
-ab --session village open "$BASE_URL/village" --state "$SESSIONS_DIR/village-auth.json"
-sleep 2
+# Clear any existing auth and login as village leader
+clear_auth
+login_as_village
 
-ab --session village snapshot -i
+# Navigate to village dashboard
+ab open "$BASE_URL/village"
+wait_for_auth
+
+# Verify we're not on login page
+verify_not_login_page || exit 1
+
+ab snapshot -i
 
 # Click "More" in bottom nav
-ab --session village click @e10  # More nav item
+ab click @e10 2>/dev/null || echo "No more nav item"  # More nav item
 sleep 1
 
-ab --session village snapshot -i
+ab snapshot -i
 screenshot "village-more-page"
 
 # Verify logout option

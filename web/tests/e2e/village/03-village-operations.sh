@@ -3,26 +3,35 @@ source "$(dirname $0)/../scripts/utils.sh"
 
 echo "Test: Village Operations"
 
-ab --session village open "$BASE_URL/village" --state "$SESSIONS_DIR/village-auth.json"
-sleep 2
+# Clear any existing auth and login as village leader
+clear_auth
+login_as_village
 
-ab --session village snapshot -i
+# Navigate to village dashboard
+ab open "$BASE_URL/village"
+wait_for_auth
+
+# Verify we're not on login page
+verify_not_login_page || exit 1
+
+ab snapshot -i
 
 # Navigate to households (if available in village view)
-ab --session village click @e5 2>/dev/null || echo "No households link"
+ab click @e5 2>/dev/null || echo "No households link"
 sleep 1
 
-ab --session village snapshot -i
+ab snapshot -i
 screenshot "village-households"
 
 # Navigate to tasks (if available)
-ab --session village open "$BASE_URL/village" --state "$SESSIONS_DIR/village-auth.json"
+ab open "$BASE_URL/village"
+wait_for_auth
 sleep 1
 
-ab --session village click @e6 2>/dev/null || echo "No tasks link"
+ab click @e6 2>/dev/null || echo "No tasks link"
 sleep 1
 
-ab --session village snapshot -i
+ab snapshot -i
 screenshot "village-tasks"
 
 echo "PASS: Village operations accessible"
