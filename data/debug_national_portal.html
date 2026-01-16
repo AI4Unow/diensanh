@@ -1,0 +1,1369 @@
+<!DOCTYPE html><html><head> 
+  <meta charset="UTF-8"> 
+  <title>Cổng Dịch vụ công Quốc gia</title> 
+  <meta content="width=device-width, initial-scale=1" name="viewport" id="viewport">  
+  <meta name="description" content="Cổng Dịch vụ công Quốc gia hỗ trợ thông tin, đăng ký thủ tục hành chính như đổi giấy phép lái xe, nộp thuế điện tử, thông báo khuyến mại, cấp lại thẻ BHYT, cấp điện mới..."> 
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">  
+  <meta content="width=device-width, initial-scale=1" name="viewport" id="viewport">  
+  <meta content="index, follow" name="ROBOTS"> 
+  <link rel="stylesheet" href="theme/vendor/font-awesome/css/font-awesome.min.css"> 
+  <link rel="stylesheet" type="text/css" href="theme/vendor/ap8/css/style.css"> 
+  <link rel="stylesheet" type="text/css" href="theme/vendor/slick/slick.css"> 
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="theme/vendor/typeahead/style.css"> 
+  <link rel="stylesheet" href="vendor/toastr/toastr.min.css"> 
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrapValidator.min.css"> 
+  <link rel="stylesheet" type="text/css" href="theme/vendor/swiper/css/swiper.min.css"> 
+  <link rel="stylesheet" href="vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css"> 
+  <link rel="stylesheet" href="vendor/bootstrap-timepicker/css/timepicker.css"> 
+  <link rel="stylesheet" href="theme/css/style.css?version=9"> 
+  <link rel="shortcut icon" href="img/header/quoc_huy.png"> 
+  <script type="text/javascript" src="theme/vendor/jquery/jquery.2.1.1.min.js"></script> 
+  <script type="text/javascript" src="theme/vendor/bootstrap/js/bootstrap.min.js"></script> 
+  <script type="text/javascript" src="vendor/bootstrap/js/bootstrapValidator.js"></script> 
+  <script type="text/javascript" src="theme/vendor/slick/slick.min.js"></script> 
+  <script type="text/javascript" src="theme/vendor/highchart/highcharts.js"></script> 
+  <script type="text/javascript" src="theme/vendor/highchart/modules/variable-pie.js"></script> 
+  <script type="text/javascript" src="theme/vendor/highchart/highcharts-more.js"></script> 
+  <script type="text/javascript" src="vendor/toastr/toastr.min.js"></script> 
+  <script type="text/javascript" src="vendor/slimscroll/jquery.slimscroll.min.js"></script> 
+  <script type="text/javascript" src="vendor/jq-paginator.js"></script> 
+  <script type="text/javascript" src="vendor/bootbox.all.min.js"></script> 
+  <script type="text/javascript" src="vendor/select2.min.js"></script> 
+  <script type="text/javascript" src="vendor/mime.js"></script> 
+  <script type="text/javascript" src="vendor/jquery/jquery-iframe-auto-height.min.js"></script> 
+  <script type="text/javascript" src="vendor/jquery/jquery.browser.js"></script> 
+  <link rel="stylesheet" href="vendor/select2.min.css"> 
+  <script src="./js/ApiService.js?version=18"></script> 
+  <script src="./js/CommonUtil.js?version=16"></script> 
+  <script src="./js/Constants.js"></script> 
+  <script type="text/javascript" src="vendor/typeahead/index.js"></script> 
+  <script type="text/javascript" src="vendor/typeahead/handlebars.js"></script> 
+  <script type="text/javascript" src="vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script> 
+  <script type="text/javascript" src="vendor/bootstrap-timepicker/js/bootstrap-timepicker.js"></script> 
+  <script src="./js/base64.js"></script> 
+  <script type="text/javascript" src="vendor/d3.v4.min.js"></script> 
+  <script>
+		initApiService();
+	</script> 
+ </head> 
+ <body> 
+  <div class="loading-all" id="loading-all" style="display:none"> 
+   <div class="icon"> 
+    <img src="img/loading.png" alt=""> 
+    <span style="color:blue">Đang xử lý...<span> </span></span>
+   </div> 
+   <style type="text/css">
+			.loading-all {
+				position: fixed;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				bottom: 0px;
+				z-index: 10000;
+				background: #dbdcdc40;
+			}
+			.loading-all .icon {
+				width: 100px;
+				position: absolute;
+				top: 0px;
+				height: 100px;
+				bottom: 0px;
+				right: 0px;
+				margin: auto;
+				left: 0px;
+			}
+
+		</style> 
+  </div> 
+  <!--DEFINE CONSTANT --> 
+  <!--END CONSTANT--> 
+  <div class="overlay-common"></div> 
+  <!-- /mtv/ Log propertise--> 
+  <div class="header"> 
+   <div class="container"> 
+    <div class="relative content"> 
+     <div class="logo-text"> 
+      <a href="https://dichvucong.gov.vn/p/home/dvc-trang-chu.html" class="logo"> <img src="theme/img/header/logo.png" alt=""> </a> 
+     </div> 
+     <div class="nav-toggle"> 
+      <span class="-ap icon icon-menu"></span> 
+     </div> 
+     <!-- <div class="header-account">
+					<div class="buttons">
+						<a href="https://dangky.dichvucong.gov.vn/register" class="btn btn-login">Đăng ký</a>
+						<a href="https://xacthuc.dichvucong.gov.vn/oauth2/authorize?response_type=code&client_id=Np0ahpF4exnI6DS_4KuMK_TLHLEa&scope=openid&redirect_uri=https://dichvucong.gov.vn/p/home/dvc-trang-chu.html" class="btn btn-register">Đăng nhập</a>
+					</div>
+				</div> --> 
+    </div> 
+   </div> 
+  </div> 
+  <nav class="header-nav"> 
+   <div class="container"> 
+    <ul id="main-menu" class="pull-left menus"> 
+     <li id="home-page"><a href="https://dichvucong.gov.vn/p/home/dvc-trang-chu.html"><span class="-ap icon icon-home4"></span></a></li> 
+     <li><a href="dvc-tthc-trang-chu.html">Tra cứu TTHC</a></li> 
+     <li class="active"><a href="dvc-tthc-thu-tuc-hanh-chinh.html">Thủ tục hành chính</a></li> 
+     <li><a href="dvc-tthc-thu-tuc-hanh-chinh-lien-thong.html">Thủ tục hành chính liên thông</a></li> 
+     <li><a href="dvc-tthc-quyet-dinh-cong-bo.html">Quyết định công bố</a></li> 
+     <li><a href="dvc-tthc-co-quan.html">Cơ quan</a></li> 
+     <!-- <li><a href="dvc-gioi-thieu.html">Giới thiệu</a></li>
+				<li>
+					<a href="#">Thông tin và dịch vụ</a>
+					<ul class="dropdown-menu">
+						<li><a href="dvc-trang-chu-cong-dan.html">Công dân</a></li>
+						<li><a href="dvc-trang-chu-doanh-nghiep.html">Doanh nghiệp</a></li>
+						<li><a href="dvc-dich-vu-cong-truc-tuyen.html">Dịch vụ công trực tuyến</a></li>
+						<li><a href="dvc-dich-vu-cong-noi-bat.html">Dịch vụ công nổi bật</a></li>
+						<li><a href="dvc-tra-cuu-ho-so.html">Tra cứu hồ sơ</a></li>
+						<li><a href="dvc-tra-cuu-ban-an.html">Tòa án nhân dân</a></li>
+						<li><a href="dvc-cau-hoi-pho-bien.html">Câu hỏi thường gặp</a></li>
+					</ul>
+				</li> --> 
+     <!-- <li>
+					<a href="dvc-thanh-toan-truc-tuyen.html">Thanh toán trực tuyến</a> --> 
+     <!-- <ul class="dropdown-menu">
+						<li><a href="dvc-thanh-toan.html">Nộp thuế doanh nghiệp</a></li>
+						<li><a href="dvc-thanh-toan-thue-ca-nhan.html">Nộp thuế cá nhân/Trước bạ</a></li>
+						<li>
+							<a href="#">Thanh toán vi phạm hành chính</a>
+							<ul class="dropdown-menu">
+								<li><a href="dvc-thanh-toan-vi-pham-giao-thong.html">Tra cứu/Thanh toán vi phạm giao thông</a></li>
+								<li><a href="dvc-thanh-toan-vi-pham-xay-dung.html">Tra cứu/Thanh toán vi phạm xây dựng</a></li>
+							</ul>
+						</li>
+						<li><a href="dvc-thanh-toan-phi-le-phi-ho-so.html">Thanh toán phí/lệ phí dịch vụ công</a></li>
+						<li><a href="dvc-thanh-toan-bhxh-bhyt.html">Đóng tiếp BHXH tự nguyện, gia hạn BHYT</a></li>
+						<li><a href="dvc-thanh-toan-bhxh-doanh-nghiep.html">Đóng BHXH, BHYT, BHTN, BHTNLĐ-BNN</a></li>
+						<li><a href="dvc-thanh-toan-thue-dat-dai.html">Thanh toán nghĩa vụ tài chính về đất đai</a></li>
+						<li><a href="dvc-thanh-toan-dien.html">Thanh toán tiền điện</a></li>
+						<li><a href="dvc-thanh-toan-vien-phi.html">Thanh toán viện phí</a></li>
+						<li><a href="dvc-thanh-toan-an-phi.html">Thanh toán tạm ứng án phí</a></li>
+					</ul> --> 
+     <!-- </li> --> 
+     <!-- <li>
+				  <a href="#">Phản ánh kiến nghị</a>
+				  <ul class="dropdown-menu">
+					<li><a href="/p/phananhkiennghi/pakn-gui-pakn.html">Gửi PAKN</a></li>
+					<li><a href="/p/phananhkiennghi/pakn-search.html">Tra cứu kết quả trả lời</a></li>
+				  </ul>
+				</li> --> 
+     <!-- <li> --> 
+     <!-- <a href="#">Thủ tục hành chính</a> --> 
+     <!-- <ul class="dropdown-menu"> --> 
+     <!-- <li><a href="https://thutuc.dichvucong.gov.vn/p/home/dvc-tthc-trang-chu.html">Tra cứu TTHC</a></li>
+					<li><a href="https://thutuc.dichvucong.gov.vn/p/home/dvc-tthc-thu-tuc-hanh-chinh.html">Thủ tục hành chính</a></li>
+					<li><a href="https://thutuc.dichvucong.gov.vn/p/home/dvc-tthc-thu-tuc-hanh-chinh-lien-thong.html">Thủ tục hành chính liên thông</a></li>
+					<li><a href="https://thutuc.dichvucong.gov.vn/p/home/dvc-tthc-quyet-dinh-cong-bo.html">Quyết định công bố</a></li>
+					<li><a href="https://thutuc.dichvucong.gov.vn/p/home/dvc-tthc-co-quan.html">Cơ quan</a></li> --> 
+     <!-- <li id="coquan"><a href="dvc-tthc-co-quan.html">Cơ quan</a></li>
+					<li hidden id="bn-ttp"><a href="dvc-tthc-bonganh-tinhtp.html">TTHC Bộ ngành Tỉnh thành phố</a></li> --> 
+     <!-- </ul> --> 
+     <!-- </li> --> 
+     <!-- <li class="">
+					<a href="#">Hỗ trợ</a>
+					<ul class="dropdown-menu">
+						<li><a href="dvc-dieu-khoan-su-dung.html">Điều khoản sử dụng</a></li>
+						<li><a href="dvc-huong-dan-cong-dan-doanh-nghiep.html">Hướng dẫn sử dụng</a></li>
+						<li><a href="dvc-tin-tuc.html">Thông báo</a></li>
+					</ul>
+				</li> --> 
+    </ul> 
+    <div class="header-account mobile-ds"> 
+     <!-- <div class="buttons">
+					<a href="https://xacthuc.dichvucong.gov.vn/oauth2/authorize?response_type=code&client_id=Np0ahpF4exnI6DS_4KuMK_TLHLEa&scope=openid&redirect_uri=https://dichvucong.gov.vn/p/home/dvc-trang-chu.html" class="btn btn-login">Đăng nhập</a>
+					<a href="https://dangky.dichvucong.gov.vn/register" class="btn btn-register">Đăng ký</a>
+				</div> --> 
+    </div> 
+   </div> 
+  </nav> 
+  <div class="header-bottom"> 
+   <div class="container"> 
+    <ul id="list-dropdown"> 
+    </ul> 
+   </div> 
+  </div> 
+ 
+
+
+  
+  
+  <cache id="seach" type="cache5"> 
+   <style>
+    .selection > span {
+        font-size: 18px;
+    }
+    .select2-results {
+        font-size: 18px;
+    }
+	.select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #8F969C;
+    }
+</style> 
+   <div class="tthc"> 
+    <div class="section-tthc"> 
+     <div class="container"> 
+      <ul class="breadcrumb"> 
+       <li><a href="dvc-tthc-trang-chu.html">Trang chủ</a></li> 
+       <li><a href="#">Thủ tục hành chính</a></li> 
+      </ul> 
+      <div class="row"> 
+       <div class="col-sm-9 col-xs-12"> 
+        <div class="box-search -adv"> 
+         <input type="text" class="form-control" placeholder="Nhập từ khoá tìm kiếm" id="input-keyword"> 
+         <div class="adv">
+           Tìm kiếm nâng cao 
+         </div> 
+         <button id="btn-search" class="btn btn-search"> <span class="-ap icon-search icon"></span> Tìm kiếm </button> 
+        </div> 
+        <div class="box form-horizontal -child" id="searchAdv"> 
+         <div class="form-group"> 
+          <div class="col-sm-3 col-xs-12"> 
+           <div class="label-text control-label">
+             Tìm theo: 
+           </div> 
+          </div> 
+          <div class="col-sm-9 col-xs-12"> 
+           <div class="check-action "> 
+            <input type="radio" class="check" name="radio-main" value="0" checked=""> 
+            <span class="name">Bộ/ Ban/ Ngành</span> 
+           </div> 
+           <div class="check-action marl20"> 
+            <input type="radio" class="check" name="radio-main" value="1"> 
+            <span class="name">Tỉnh/ Thành phố</span> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="form-group"> 
+          <div class="col-sm-3 col-xs-12"> 
+           <div class="label-text control-label">
+             Cơ quan thực hiện 
+           </div> 
+          </div> 
+          <div class="col-sm-3 col-xs-12"> 
+           <div class="select-custom"> 
+            <select name="" id="select-implementation-agency" class="form-control"> <option value="-1">-- Chọn cơ quan --</option> </select> 
+           </div> 
+          </div> 
+          <div class="col-sm-3 col-xs-12"> 
+           <div class="label-text control-label">
+             Lĩnh vực 
+           </div> 
+          </div> 
+          <div class="col-sm-3 col-xs-12"> 
+           <div class="select-custom"> 
+            <select name="" id="select-field" class="form-control"> <option value="-1">-- Chọn lĩnh vực --</option> </select> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="form-group"> 
+          <div class="col-sm-3 col-xs-12"> 
+           <div class="label-text control-label">
+             Cấp thực hiện 
+           </div> 
+          </div> 
+          <div class="col-sm-3 col-xs-12"> 
+           <div class="select-custom"> 
+            <select name="" id="select-level" class="form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true"><option value="-1">-- Chọn cấp thực hiện --</option>
+                            <option value="1">-- Cấp Tỉnh --</option>
+                            <option value="3">-- Cấp Xã --</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-select-level-container"><span class="select2-selection__rendered" id="select2-select-level-container" title="-- Chọn cấp thực hiện --">-- Chọn cấp thực hiện --</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> 
+           </div> 
+          </div> 
+          <div class="col-sm-3 col-xs-12"> 
+           <div class="label-text control-label">
+             Đối tượng thực hiện 
+           </div> 
+          </div> 
+          <div class="col-sm-3 col-xs-12"> 
+           <div class="select-custom"> 
+            <select name="" id="select-object" class="form-control select2-hidden-accessible" tabindex="-1" aria-hidden="true"><option value="-1">-- Chọn đối tượng  --</option><option value="4">Cán bộ, công chức, viên chức</option><option value="1">Công dân Việt Nam</option><option value="5">Doanh nghiệp</option><option value="6">Doanh nghiệp có vốn đầu tư nước ngoài</option><option value="16642">Đảng viên</option><option value="9">Hợp tác xã</option><option value="3">Người nước ngoài</option><option value="2">Người Việt Nam định cư ở nước ngoài</option><option value="16622">Tổ chức Đảng</option><option value="7">Tổ chức (không bao gồm doanh nghiệp, HTX)</option><option value="8">Tổ chức nước ngoài</option></select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-select-object-container"><span class="select2-selection__rendered" id="select2-select-object-container" title="-- Chọn đối tượng  --">-- Chọn đối tượng  --</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span> 
+           </div> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="divider-gray"></div> 
+        <div class="box-form-result"> 
+         <div class="pull-left"> 
+          <h2 class="main-title-sub" id="title-search-result">Thủ tục hành chính mới</h2> 
+         </div> 
+         <div class="pull-right"> 
+          <div class="text-result"> 
+           <a href="javascript:exportExel();" title="Tải xuống danh sách thủ tục"><i class="fa fa-2x fa-file-excel-o" aria-hidden="true" style="color:green"></i></a> 
+          </div> 
+         </div> 
+         <div class="clearfix"></div> 
+        </div> 
+        <div class="table-content"> 
+         <table id="table-main" class="table-result table" style="width:100%;"> 
+          <thead> 
+           <tr> 
+            <th style="text-align: center; width: 10%; height: 40px;">Mã số</th> 
+            <th style="text-align: center; width: 42%;">Tên</th> 
+            <th style="text-align: center; width: 17%;">Cơ quan ban hành</th> 
+            <th style="text-align: center; width: 17%;">Cơ quan thực hiện</th> 
+            <th style="text-align: center; width: 14%;">Lĩnh vực</th> 
+           </tr> 
+          </thead> 
+          <tbody><tr></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=423057"><span class="link thick">2.002823</span></a></td><td data-title="Tên">Thủ tục vay vốn hỗ trợ tạo việc làm, duy trì, mở rộng việc làm đối với người lao động</td><td data-title="Cơ quan ban hành" class="tleft">Ngân hàng Chính sách xã hội</td><td data-title="Cơ quan thực hiện" class="tleft">Ngân hàng Chính sách xã hội</td><td data-title="Lĩnh vực" class="tleft">Hoạt động tín dụng</td></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=423053"><span class="link thick">2.002822</span></a></td><td data-title="Tên">Thủ tục vay vốn hỗ trợ tạo việc làm, duy trì, mở rộng việc làm đối với cơ sở sản xuất, kinh doanh (Doanh nghiệp nhỏ và vừa, hợp tác xã, tổ hợp tác, liên hiệp hợp tác xã, hộ kinh doanh)</td><td data-title="Cơ quan ban hành" class="tleft">Ngân hàng Chính sách xã hội</td><td data-title="Cơ quan thực hiện" class="tleft">Ngân hàng Chính sách xã hội</td><td data-title="Lĩnh vực" class="tleft">Hoạt động tín dụng</td></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=422041"><span class="link thick">2.002818</span></a></td><td data-title="Tên">Chấp thuận tổ chức đủ điều kiện là Trung tâm thanh toán bù trừ</td><td data-title="Cơ quan ban hành" class="tleft">Bộ Công thương</td><td data-title="Cơ quan thực hiện" class="tleft">Ban Quản lý Khu kinh tế</td><td data-title="Lĩnh vực" class="tleft">Sở giao dịch hàng hóa</td></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=422040"><span class="link thick">2.002817</span></a></td><td data-title="Tên">Cấp lại Giấy phép thành lập Sở giao dịch hàng hóa trong Trung tâm tài chính quốc tế tại Việt Nam</td><td data-title="Cơ quan ban hành" class="tleft">Bộ Công thương</td><td data-title="Cơ quan thực hiện" class="tleft">Ban Quản lý Khu kinh tế</td><td data-title="Lĩnh vực" class="tleft">Sở giao dịch hàng hóa</td></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=421984"><span class="link thick">1.014572</span></a></td><td data-title="Tên">Cấp sửa đổi, bổ sung Giấy phép thành lập Sở giao dịch hàng hóa trong Trung tâm tài chính quốc tế tại Việt Nam</td><td data-title="Cơ quan ban hành" class="tleft">Bộ Công thương</td><td data-title="Cơ quan thực hiện" class="tleft">Ban Quản lý Khu kinh tế</td><td data-title="Lĩnh vực" class="tleft">Sở giao dịch hàng hóa</td></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=421983"><span class="link thick">1.014571</span></a></td><td data-title="Tên">Cấp Giấy phép thành lập Sở giao dịch hàng hóa trong Trung tâm tài chính quốc tế tại Việt Nam</td><td data-title="Cơ quan ban hành" class="tleft">Bộ Công thương</td><td data-title="Cơ quan thực hiện" class="tleft">Ban Quản lý Khu kinh tế</td><td data-title="Lĩnh vực" class="tleft">Sở giao dịch hàng hóa</td></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=421772"><span class="link thick">1.014567</span></a></td><td data-title="Tên">Đề nghị thu hồi giấy tờ trong trường hợp có căn cứ xác định nội dung kê khai trong hồ sơ đăng ký kinh doanh của tổ chức khoa học và công nghệ là giả mạo</td><td data-title="Cơ quan ban hành" class="tleft">Bộ Tài chính</td><td data-title="Cơ quan thực hiện" class="tleft">Sở Tài chính các tỉnh, thành phố, Ban quản lý khu công nghiệp, khu kinh tế, khu chế xuất, khu công nghệ cao các tỉnh, thành phố</td><td data-title="Lĩnh vực" class="tleft">Khoa học công nghệ</td></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=421735"><span class="link thick">1.014566</span></a></td><td data-title="Tên">Đăng ký tạm ngừng kinh doanh, tiếp tục kinh doanh trước thời hạn đã đăng ký, chấm dứt kinh doanh của tổ chức khoa học và công nghệ, chi nhánh của tổ chức khoa học và công nghệ</td><td data-title="Cơ quan ban hành" class="tleft">Bộ Tài chính</td><td data-title="Cơ quan thực hiện" class="tleft">Sở Tài chính các tỉnh, thành phố, Ban quản lý khu công nghiệp, khu kinh tế, khu chế xuất, khu công nghệ cao các tỉnh, thành phố</td><td data-title="Lĩnh vực" class="tleft">Khoa học công nghệ</td></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=421734"><span class="link thick">1.014565</span></a></td><td data-title="Tên">Đăng ký kinh doanh lần đầu, đăng ký thay đổi nội dung đăng ký kinh doanh, đăng ký cấp lại, hiệu đính thông tin đăng ký kinh doanh của tổ chức khoa học công nghệ, chi nhánh của tổ chức khoa học công nghệ</td><td data-title="Cơ quan ban hành" class="tleft">Bộ Tài chính</td><td data-title="Cơ quan thực hiện" class="tleft">Sở Tài chính các tỉnh, thành phố, Ban quản lý khu công nghiệp, khu kinh tế, khu chế xuất, khu công nghệ cao các tỉnh, thành phố</td><td data-title="Lĩnh vực" class="tleft">Khoa học công nghệ</td></tr><tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=421661"><span class="link thick">1.014564</span></a></td><td data-title="Tên">Thủ tục cấp phép cho công dân Việt Nam định cư ở nước ngoài vào, ra Cảng quốc tế Cam Ranh</td><td data-title="Cơ quan ban hành" class="tleft">Bộ Quốc phòng</td><td data-title="Cơ quan thực hiện" class="tleft">Quân chủng Hải quân</td><td data-title="Lĩnh vực" class="tleft">Bảo vệ công trình quốc phòng và khu quân sự</td></tr></tbody> 
+         </table> 
+        </div> 
+        <!-- <div class="tab-content">
+							<div class="tab-pane active" id="tthct">
+								<div class="table-content">
+										<table id="table-main" class="table-result table" style="width:100%;">
+										<thead>
+											<th style="text-align: center; width: 10%; height: 40px;">Mã số</th>
+											<th style="text-align: center; width: 42%;">Tên</th>
+											<th style="text-align: center; width: 17%;">Cơ quan ban hành</th>
+											<th style="text-align: center; width: 17%;">Cơ quan thực hiện</th>
+											<th style="text-align: center; width: 14%;">Lĩnh vực</th>
+										</thead>
+										<tbody>
+											<tr></tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+					</div> --> 
+        <div class="divider-gray"></div> 
+        <div id="paginationPanel" class="bottom" hidden="" style="display: block;"> 
+         <div class="pull-left mart10"> 
+          <span class="text">Số hàng mỗi trang</span> 
+          <div class="select-custom inline"> 
+           <select name="" id="paginationRecsPerPage" class="form-control"> <option value="5">5</option> <option value="10" selected="">10</option> <option value="20">20</option> <option value="50">50</option> </select> 
+          </div> 
+         </div> 
+         <div class="pull-right"> 
+          <ul id="paginationTableDVC" class="pagination" style="display: none;"> 
+          </ul> 
+         </div> 
+         <div class="clearfix"></div> 
+        </div> 
+       </div> 
+       <div class="col-sm-3 col-xs-12"> 
+        <div class="sidebar"> 
+         <div class="head">
+          Tìm kiếm nhiều nhất
+         </div> 
+         <div class="body"> 
+          <ul class="links"> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1480" title="Cấp Giấy xác nhận nhân sự của công dân Việt Nam ở nước ngoài (thực hiện tại cấp Trung ương)">Cấp Giấy xác nhận nhân sự của công dân Việt Nam ở nước ngoài (thực hiện tại cấp Trung ương)</a> <p class="unit">Bộ Công an</p> </li> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1330" title="Cấp giấy phép xuất khẩu, nhập khẩu hóa chất Bảng 1">Cấp giấy phép xuất khẩu, nhập khẩu hóa chất Bảng 1</a> <p class="unit">Bộ Công thương</p> </li> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1399" title="Cấp lại Giấy phép thành lập Văn phòng đại diện của thương nhân nước ngoài tại Việt Nam">Cấp lại Giấy phép thành lập Văn phòng đại diện của thương nhân nước ngoài tại Việt Nam</a> <p class="unit">Bộ Công thương</p> </li> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1393" title="Cấp lại giấy phép hoạt động dự báo, cảnh báo khí tượng thủy văn (cấp tỉnh)">Cấp lại giấy phép hoạt động dự báo, cảnh báo khí tượng thủy văn (cấp tỉnh)</a> <p class="unit">Bộ Nông nghiệp và Môi trường</p> </li> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1243" title="Thủ tục cấp Giấy chứng nhận đủ điều kiện kinh doanh hoạt động thể thao đối với môn Judo">Thủ tục cấp Giấy chứng nhận đủ điều kiện kinh doanh hoạt động thể thao đối với môn Judo</a> <p class="unit">Bộ Văn hóa, Thể thao và Du lịch</p> </li> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1241" title="Thủ tục cấp Giấy miễn thị thực tại Cơ quan đại diện VIệt Nam ở nước ngoài">Thủ tục cấp Giấy miễn thị thực tại Cơ quan đại diện VIệt Nam ở nước ngoài</a> <p class="unit">Bộ Ngoại giao</p> </li> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1484" title="Thủ tục gia hạn Giấy chứng nhận đăng ký thành lập và hoạt động của cơ sở văn hóa nước ngoài tại Việt Nam">Thủ tục gia hạn Giấy chứng nhận đăng ký thành lập và hoạt động của cơ sở văn hóa nước ngoài tại Việt Nam</a> <p class="unit">Bộ Văn hóa, Thể thao và Du lịch</p> </li> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1338" title="Thủ tục phê duyệt cho hộ nghèo, hộ cận nghèo, hộ mới thoát nghèo bị rủi ro do nguyên nhân khách quan vay bổ sung vốn để khôi phục sản xuất, kinh doanh">Thủ tục phê duyệt cho hộ nghèo, hộ cận nghèo, hộ mới thoát nghèo bị rủi ro do nguyên nhân khách quan vay bổ sung vốn để khôi phục sản xuất, kinh doanh</a> <p class="unit">Ngân hàng Chính sách xã hội</p> </li> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1483" title="Thủ tục trả nợ, trả lãi trực tiếp bằng tiền mặt của người vay là tổ viên Tổ Tiết kiệm và vay vốn">Thủ tục trả nợ, trả lãi trực tiếp bằng tiền mặt của người vay là tổ viên Tổ Tiết kiệm và vay vốn</a> <p class="unit">Ngân hàng Chính sách xã hội</p> </li> 
+           <li> <a class="link" href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=1392" title="Trả lại giấy phép nhận chìm (cấp tỉnh)">Trả lại giấy phép nhận chìm (cấp tỉnh)</a> <p class="unit">Bộ Nông nghiệp và Môi trường</p> </li> 
+          </ul> 
+         </div> 
+        </div> 
+        <!-- <div class="sidebar -statis">
+    <div class="head">Số liệu thống kê </div>
+    <div class="body">
+                <div class="info">
+            <span class="value" style="color: #7C964C;">
+                                5711
+                            </span>
+            <div class="key">Tổng số TTHC</div>
+        </div>
+        <div class="divider-gray" style="margin: 10px 0px;"></div>
+        <div class="info">
+            <span class="value" style="color: #F2A634;">
+                                2878
+                            </span>
+            <div class="key">TTHC thực hiện tại Bộ, cơ quan</div>
+        </div>
+        <div class="divider-gray" style="margin: 10px 0px;"></div>
+        <div class="info">
+            <span class="value" style="color: #F2A634;">
+                                968
+                            </span>
+            <div class="key">TTHC thực hiện tại địa phương</div>
+        </div>
+        <div class="divider-gray" style="margin: 10px 0px;"></div>
+        <div class="info">
+            <span class="value" style="color: #F2A634;">
+                                1608
+                            </span>
+            <div class="key">TTHC ngành dọc tại địa phương</div>
+        </div>
+    </div>
+</div> --> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+   <script>
+
+		var searchedAmount = 0;
+		var currentPage = 1;
+		var recordPerPage = 10;
+
+		var isAdvancedSearch = false;
+	
+		var isFirstLoad = true;
+		var isComboboxesLoaded = false;
+	
+		$(document).ready(() => {
+			$("#li-tthc").addClass("active");
+	
+			$("input[type=radio][name='radio-main']").change(function() {
+				
+				var agencyTypeId = $("input[name = 'radio-main']:checked").val();
+				if (agencyTypeId == 0) {
+                    $("#select-level").val("-1");
+					$('#select-level').select2().trigger('change');
+                    $("#select-level").prop('disabled', 'disabled');
+                } else {
+                    $("#select-level").prop('disabled', false);
+                }
+				loadListObject();
+				loadListAgency(agencyTypeId, 2);
+			});
+	
+			$("#select-implementation-agency").change(() => {
+				
+				var agencyId = $("#select-implementation-agency").val();
+				loadListField(agencyId);
+			});
+	
+			$("#input-keyword").keypress(event => {
+				var keycode = (event.keyCode ? event.keyCode : event.which);
+				if(keycode == '13'){
+					onAdvancedSearch(1);
+					doSearchWhenNotFoundInBONGANH();
+				}
+			});
+	
+			$("#btn-search").click(() => {
+				onAdvancedSearch(1);
+				doSearchWhenNotFoundInBONGANH();
+			});
+	
+			$("#paginationRecsPerPage").change(() => {
+				recordPerPageAfterChanged = Number.parseInt($("#paginationRecsPerPage").val(), 10);
+				// currentPage = Math.ceil(currentPage * recordPerPage / recordPerPageAfterChanged);
+				currentPage = Math.ceil(((currentPage - 1) * recordPerPage + 1) / recordPerPageAfterChanged);
+				recordPerPage = recordPerPageAfterChanged;
+				// onAdvancedSearch(currentPage);
+				onAdvancedSearchSessionStorage(currentPage);
+			});
+	
+			// isFirstLoad = false;
+			// $("input[name='radio-main']").change();
+			// $("input[name='radio-main']").on('change', function() {}).filter(':checked').trigger('change');
+			$(".box-search .adv").click(function() {
+				if (!isComboboxesLoaded) {
+					$("input[name='radio-main']").on('change', function() {}).filter(':checked').trigger('change');
+					isComboboxesLoaded = true;
+				}
+			});
+	
+			loadListObject();
+	
+			loadListImplLevel();
+	
+			firstLoad();
+		});
+	
+		function loadNewProcedures() {
+	
+			var obj = new Object();
+			obj.service = "procedure_get_new_procs_service_v2";
+            // obj.service = "procedure_advanced_search_service";
+            
+			obj.provider = "dvcquocgia";
+			obj.type = "ref";
+	
+			obj.is_connected = 0;
+			obj.records = recordPerPage;
+	
+			var result = apiservice.AjaxJson.executeQuery(obj);
+	
+			dataToView(result);
+			$("#title-search-result").html("Thủ tục hành chính mới");
+		}
+	
+		function onAdvancedSearch(pageIndex) {
+	
+			currentPage = pageIndex;
+	
+			var obj = new Object();
+			obj.service = "procedure_advanced_search_service_v2";
+			obj.provider = "dvcquocgia";
+			obj.type = "ref";
+	
+			obj.recordPerPage = recordPerPage;
+			obj.pageIndex = pageIndex;
+	
+			obj.is_connected = 0;
+			obj.keyword = $("#input-keyword").val().trim();
+			obj.agency_type = $("input[name = 'radio-main']:checked").val();
+			// obj.publish_agency_id = $("#select-publishing-agency").val();
+			obj.impl_agency_id = $("#select-implementation-agency").val();
+			obj.object_id = $("#select-object").val();
+			obj.field_id = $("#select-field").val();
+			obj.impl_level_id = $('#select-level').val();
+			
+			
+			var jsonObj = JSON.stringify(obj);
+			sessionStorage.setItem("obj",jsonObj);
+
+			var result = apiservice.AjaxJson.executeQuery(obj);
+		
+	
+			// if (result && result.length > 0)
+			dataToView(result);
+		}
+	
+		function onAdvancedSearchSessionStorage(pageIndex) {
+	
+			currentPage = pageIndex;
+			let jsonObj = sessionStorage.getItem("obj");
+			let objSessionStorage = JSON.parse(jsonObj) ;
+
+			var obj = new Object();
+			obj.service = "procedure_advanced_search_service_v2";
+			obj.provider = "dvcquocgia";
+			obj.type = "ref";
+
+			obj.recordPerPage = recordPerPage;
+			obj.pageIndex = pageIndex;
+
+			obj.is_connected = 0;
+			obj.keyword = objSessionStorage.keyword;
+			obj.agency_type = objSessionStorage.agency_type;
+			// obj.publish_agency_id = $("#select-publishing-agency").val();
+			obj.impl_agency_id = objSessionStorage.impl_agency_id;
+			obj.object_id = objSessionStorage.object_id;
+			obj.field_id = objSessionStorage.field_id;
+			obj.impl_level_id = objSessionStorage.impl_level_id;
+			
+			var result = apiservice.AjaxJson.executeQuery(obj);
+
+			// if (result && result.length > 0)
+			dataToView(result);
+			
+		}
+
+
+		function loadListAgency(agencyTypeId, roleType) {
+			var obj = new Object();
+			// obj.service = "procedure_get_list_agency_by_role_type_service";
+			obj.service = "procedure_get_list_agency_by_type_service_v2";
+			obj.provider = "dvcquocgia";
+			obj.type = "ref";
+	
+			obj.loaicoquan = agencyTypeId;
+			// obj.role_type = roleType;
+	
+			var result = apiservice.AjaxJson.executeQuery(obj);
+	
+	
+			var htmlText = '<option value="-1">-- Chọn cơ quan  --</option>';
+			if (result && result.length > 0) {
+	
+				result.forEach(item => {
+					htmlText += '<option value="' + item.ID + '">' + item.NAME + '</option>'
+				});
+			}
+	
+			if (roleType === 1) {
+				$("#select-publishing-agency").html(htmlText);
+				$('#select-publishing-agency').select2({
+					width: "100%"
+				});
+	
+			} else if (roleType === 2) {
+				$("#select-implementation-agency").html(htmlText);
+				$('#select-implementation-agency').select2({
+					width: "100%"
+				});
+			}
+	
+			// if (!isFirstLoad)    
+			$("#select-implementation-agency").change();
+	
+		}
+	
+		function loadListObject() {
+			var obj = new Object();
+			obj.service = "procedure_get_list_object_service_v2";
+			obj.provider = "dvcquocgia";
+			obj.type = "ref";
+	
+			obj.recordPerPage = 100;
+			obj.pageIndex = 1;
+	
+			var result = apiservice.AjaxJson.executeQuery(obj);
+	
+	
+			var htmlText = '<option value="-1">-- Chọn đối tượng  --</option>';
+			if (result && result.length > 0) {
+	
+				result.forEach(item => {
+					htmlText += '<option value="' + item.ID + '">' + item.NAME + '</option>'
+				});
+			}
+	
+			$("#select-object").html(htmlText);
+			$('#select-object').select2({
+				width: "100%"
+			});
+	
+		}
+	
+		function loadListField(agencyId) {
+			var obj = new Object();
+			obj.service = "procedure_get_list_field_service_v2";
+			obj.provider = "dvcquocgia";
+			obj.type = "ref";
+	
+			obj.agency_id = agencyId;
+			// obj.recordPerPage = 100;
+			// obj.pageIndex = 1;
+	
+			var result = apiservice.AjaxJson.executeQuery(obj);
+	
+	
+			var htmlText = '<option value="-1">-- Chọn lĩnh vực  --</option>';
+			if (result && result.length > 0) {
+	
+				result.forEach(item => {
+					htmlText += '<option value="' + item.ID + '">' + item.FIELD_NAME + '</option>'
+				});
+			}
+	
+			$("#select-field").html(htmlText);
+			$('#select-field').select2({
+				width: "100%"
+			});
+	
+		}
+	
+		// function loadListImplLevel() {
+		// 	var obj = new Object();
+		// 	obj.service = "get_list_impl_level_service";
+		// 	obj.provider = "dvcquocgia";
+		// 	obj.type = "ref";
+	
+		// 	var result = apiservice.AjaxJson.executeQuery(obj);
+	
+	
+		// 	var htmlText = '<option value="-1">-- Chọn cấp thực hiện --</option>';
+		// 	if (result && result.length > 0) {
+	
+		// 		result.forEach(item => {
+		// 			htmlText += '<option value="' + item.ID + '">' + item.NAME + '</option>'
+		// 		});
+		// 	}
+	
+		// 	$("#select-level").html(htmlText);
+		// 	$('#select-level').select2({
+		// 		width: "100%"
+		// 	});
+	
+		// }
+
+		function loadListImplLevel() {
+            var htmlText = `<option value="-1">-- Chọn cấp thực hiện --</option>
+                            <option value="1">-- Cấp Tỉnh --</option>
+                            <option value="3">-- Cấp Xã --</option>`;
+    
+            $("#select-level").html(htmlText);
+			$('#select-level').select2({
+				width: "100%"
+			});
+    
+        }
+	
+		function agencyListToString(list) {
+	
+			var ret = '';
+			list.forEach(item => {
+				ret += ', ' + item.NAME;
+			});
+	
+			return ret.substring(2);
+		}
+	
+		// function getAgenciesByProcId(procedureId, type) {
+	
+		// 	var obj = new Object();
+		// 	obj.service = "get_agencies_name_by_proc_id_service";
+		// 	obj.provider = "dvcquocgia";
+		// 	obj.type = "ref";
+	
+		// 	obj.procedure_id = procedureId;
+		// 	obj.map_agency_type = type;
+	
+		// 	var result = apiservice.AjaxJson.executeQuery(obj);
+	
+		// 	return agencyListToString(result);
+		// }
+	
+		function dataToView(result) {
+	
+			$("#table-main > tbody").html("<tr></tr>");
+			$("#paginationPanel").hide();
+	
+			if (result && result.length > 0) {
+	
+				searchedAmount = result[0].AMOUNT;
+	
+				var htmlText = '';
+				result.forEach(item => {
+	
+					//var implementationAgency = getAgenciesByProcId(item.ID, 2);
+					
+					$('#table-main tr:last').after('<tr><td class="nowrap" data-title="Mã số"><a href="dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html?ma_thu_tuc=' + item.ID + '"><span class="link thick">' //
+						+ item.PROCEDURE_CODE + '</span></a></td><td data-title="Tên">' //
+						+ item.PROCEDURE_NAME + '</td><td data-title="Cơ quan ban hành" class="tleft">' //
+						+ item.PUBLISHED_AGENCY + '</td><td data-title="Cơ quan thực hiện" class="tleft">' //
+						+ item.IMPLEMENTATION_AGENCY + '</td><td data-title="Lĩnh vực" class="tleft">' //
+						+ item.FIELD_NAME + '</td></tr>');
+				});
+	
+				loadPagination(parseInt(searchedAmount, 10), currentPage, "paginationTableDVC", "doChangePageTableDVC", [], recordPerPage);
+	
+			} else {
+				searchedAmount = 0;
+				loadPagination(1, currentPage, "paginationTableDVC", "doChangePageTableDVC", [], recordPerPage);
+			}
+	
+			$("#title-search-result").html("Danh sách thủ tục hành chính (" + searchedAmount + ")");
+	
+			// if (searchedAmount > recordPerPage)
+			if (searchedAmount > 0)
+					$("#paginationPanel").show();
+		}
+	
+		function firstLoad() {
+	
+			var pSearchLienThong = getUrlParameter('loai_tthc');
+			if (pSearchLienThong != undefined) {
+
+				let currentRadioValue = $("input[name='radio-main']").val();
+				if ((getUrlParameter('tinh_bo')) == '1')
+					$("input[name='radio-main'][value='1']").prop('checked', true);
+				else
+					$("input[name='radio-main'][value='0']").prop('checked', true);
+				// $("input[name='radio-main']").change(); // load lại combobox
+				if (getUrlParameter('tinh_bo') != currentRadioValue)
+					$("input[name='radio-main']").on('change', function() { console.log('on change called FIRST LOAD') }).filter(':checked').trigger('change');
+	
+				$("#input-keyword").val(getUrlParameter('tu_khoa'));
+	
+				// $("#select-object").val(getUrlParameter('doi_tuong_thuc_hien') ? getUrlParameter('doi_tuong_thuc_hien') : '-1');
+				// $('#select-object').select2().trigger('change');
+	
+				// $("#select-implementation-agency").val(getUrlParameter('co_quan_cong_bo') ? getUrlParameter('co_quan_cong_bo') : '-1');
+				// $('#select-implementation-agency').select2().trigger('change');
+				var paramAgency = getUrlParameter('co_quan_cong_bo'); // không triggle change agency => không load lại field nếu agency_id = -1 (tức tìm kiếm với tất cả agency)
+				if (paramAgency != '-1') {
+					$("#select-implementation-agency").val(paramAgency ? paramAgency : '-1');
+					$('#select-implementation-agency').select2().trigger('change');
+				}
+				
+				
+
+				$("#select-field").val(getUrlParameter('linh_vuc') ? getUrlParameter('linh_vuc') : '-1');
+				$('#select-field').select2().trigger('change');
+	
+				$('#select-level').val(getUrlParameter('cap_thuc_hien') ? getUrlParameter('cap_thuc_hien') : '-1');
+				$('#select-level').select2().trigger('change');
+	
+				$(".adv").click();
+				
+				$("#select-implementation-agency").val(paramAgency ? paramAgency : '-1');
+				$('#select-implementation-agency').select2().trigger('change');
+
+				$("#select-field").val(getUrlParameter('linh_vuc') ? getUrlParameter('linh_vuc') : '-1');
+				$('#select-field').select2().trigger('change');
+
+				$("#select-object").val(getUrlParameter('doi_tuong_thuc_hien') ? getUrlParameter('doi_tuong_thuc_hien') : '-1');
+				$('#select-object').select2().trigger('change');
+				onAdvancedSearch(1);
+				doSearchWhenNotFoundInBONGANH();
+
+				// let currentRadioValue = $("input[name='radio-main']").val();
+
+				// if ((getUrlParameter('tinh_bo')) == '1')
+				// 	$("input[name='radio-main'][value='1']").prop('checked', true);
+				// else
+				// 	$("input[name='radio-main'][value='0']").prop('checked', true);
+				// $("input[name='radio-main']").change(); // load lại combobox
+	
+				// $("#input-keyword").val(getUrlParameter('tu_khoa'));
+	
+				// $("#select-object").val(getUrlParameter('doi_tuong_thuc_hien') ? getUrlParameter('doi_tuong_thuc_hien') : '-1');
+				// $('#select-object').select2().trigger('change');
+	
+				// $("#select-implementation-agency").val(getUrlParameter('co_quan_cong_bo') ? getUrlParameter('co_quan_cong_bo') : '-1');
+				// $('#select-implementation-agency').select2().trigger('change');
+	
+				// $("#select-field").val(getUrlParameter('linh_vuc') ? getUrlParameter('linh_vuc') : '-1');
+				// $('#select-field').select2().trigger('change');
+	
+				// $('#select-level').val(getUrlParameter('cap_thuc_hien') ? getUrlParameter('cap_thuc_hien') : '-1');
+				// $('#select-level').select2().trigger('change');
+	
+
+			
+			} else {
+				loadNewProcedures();
+			}
+		}
+
+		function doSearchWhenNotFoundInBONGANH() {
+			if (searchedAmount == 0 && !isAdvancedSearch) {
+				//tìm trong tỉnh tp
+				$("input[name='radio-main'][value='1']").prop('checked', true);
+				onAdvancedSearch(1);
+				$("input[name='radio-main'][value='0']").prop('checked', true);
+			}
+		}
+	
+		let searchParams = new URLSearchParams(window.location.search);
+		function getUrlParameter(sParam) {
+			return searchParams.get(sParam);
+		}
+	
+		function doChangePageTableDVC(currentPage) {
+			onAdvancedSearchSessionStorage(currentPage);
+			// onAdvancedSearch(currentPage);
+		}
+	
+		function changePagination(tabNo) {
+			if (tabNo == 1) {
+				$('#paginationDVCChoTiepNhan').hide();
+				$('#paginationDVCHoanThanh').show();
+			} else {
+				$('#paginationDVCHoanThanh').hide();
+				$('#paginationDVCChoTiepNhan').show();
+			}
+		}
+
+		function clearSearchForm() {
+            $("input[name='radio-main'][value='0']").prop('checked', true);
+
+            $("#select-implementation-agency").val('-1');
+            $('#select-implementation-agency').select2().trigger('change');
+            
+            $("#select-field").val('-1');
+            $('#select-field').select2().trigger('change');
+
+            $("#select-object").val('-1');
+            $('#select-object').select2().trigger('change');
+            
+            $('#select-level').val('-1');
+            $('#select-level').select2().trigger('change');
+            
+            $('#select-procedure-type').val('-1');
+                
+        }
+
+	</script> 
+   <script type="text/javascript">
+		$(".box-search .adv").click(function(){
+			if($(this).hasClass("active")){
+				$(this).removeClass("active");
+				$(this).text("Tìm kiếm nâng cao");
+				$("#searchAdv").removeClass("show");
+                $(".hero-banner").removeClass("showAdv");
+                isAdvancedSearch = false;
+                clearSearchForm();
+			}else{
+				$(this).addClass("active");
+				$(this).text("Tìm kiếm rút gọn");
+				$("#searchAdv").addClass("show");	
+                $(".hero-banner").addClass("showAdv");
+                isAdvancedSearch = true;
+            }
+            console.log('isAdvancedSearch', isAdvancedSearch);
+		})
+	</script> 
+   <script>
+	function exportExel() {
+		var obj = new Object();
+        obj.is_connected = 0;
+		obj.keyword = $("#input-keyword").val().trim();
+		obj.agency_type = $("input[name = 'radio-main']:checked").val();
+		// obj.publish_agency_id = $("#select-publishing-agency").val();
+		obj.impl_agency_id = $("#select-implementation-agency").val();
+		obj.object_id = $("#select-object").val();
+		obj.field_id = $("#select-field").val();
+		obj.impl_level_id = $('#select-level').val();
+
+		if ( obj.impl_agency_id == -1 ) {
+			toastr.warning('Vui lòng chọn "Cơ quan thực hiện" trong vùng Tìm kiếm nâng cao!');
+			return;
+		}
+
+		var url = '/jsp/tthc/export/export_exel_list_tthc.jsp?'
+					+ 'is_connected=' + obj.is_connected
+					+ '&keyword=' + obj.keyword
+					+ '&agency_type=' + obj.agency_type
+					+ '&impl_agency_id=' + obj.impl_agency_id
+					+ '&object_id=' + obj.object_id
+					+ '&field_id=' + obj.field_id
+					+ '&impl_level_id=' + obj.impl_level_id;
+		window.open(url, "_self");
+	}
+</script> 
+  </cache>  
+ 
+
+ 
+ 
+  <div class="loading" id="loading" style="display:none"> 
+   <div class="icon"> 
+    <img src="img/loading.svg" alt=""> 
+   </div> 
+   <style type="text/css">
+			.loading {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				right: 0px;
+				bottom: 0px;
+				z-index: 1000;
+			}
+			.loading .icon {
+				width: 100px;
+				position: absolute;
+				top: 0px;
+				height: 100px;
+				bottom: 0px;
+				right: 0px;
+				margin: auto;
+				left: 0px;
+			}
+
+		</style> 
+  </div> 
+  <footer class="footer"> 
+   <div class="footer-bottom"> 
+    <div class="container"> 
+     <div class="add"> 
+      <p>Cơ quan chủ quản: Văn phòng Chính phủ</p> 
+     </div> 
+     <div class="add"> 
+      <p>www.dichvucong.gov.vn</p> 
+     </div> 
+     <div class="add"> 
+      <p>Tổng đài hỗ trợ: 18001096</p> 
+     </div> 
+     <div class="add"> 
+      <p> Email: dichvucong@chinhphu.vn</p> 
+     </div> 
+    </div> 
+   </div> 
+  </footer> 
+  <script type="text/javascript" src="theme/vendor/typeahead/index.js"></script> 
+  <script type="text/javascript" src="theme/vendor/typeahead/handlebars.js"></script> 
+  <script type="text/javascript" src="theme/js/custom.js"></script> 
+  <script type="text/javascript">
+    function showLoading() {
+        $("#loading-all").show();
+    }
+    function hideLoading(){
+        $("#loading-all").hide();
+    }
+
+    function goToPage(url){
+        window.location.href = url;
+    }
+
+    $(".targetgroup-box .btn-readmore").click(function(e){
+        e.preventDefault();
+        if($(this).hasClass("active")){
+            $(this).html('Xem tiếp <span class="-ap icon-chevron-thin-down icon"></span>');
+            $(this).parents(".targetgroup-box").find(".links").css({"height":"250px"});
+            $(this).removeClass("active");
+        }else{
+            $(this).html('Thu gọn <span class="-ap icon-chevron-thin-up icon"></span>');
+            $(this).parents(".targetgroup-box").find(".links").css({"height":"auto"});
+            $(this).addClass("active");
+        }
+    });
+    var links = [
+            
+        ];
+
+
+    function searchProcedure(){
+        var key = getWords($("#searchKeyWord").val(), 100);
+		console.log(key);
+        // if($("#searchKeyWord").val()) {
+        var href = 'dvc-ket-qua-thu-tuc.html?originKey=' + encodeURIComponent(key) + '&tukhoa=' + key.replace(/[&\/\\#,+()$~%'":*?<>{}^]/g, ' ').trim() + '&tinh_thanh=';
+        window.location.href = href;
+        //}
+    }
+
+function showAdvSearch() {
+    getLocation("dvcqg_get_tinh_thanh_by_selected_v2", null, null, "cboTINH_THANH");
+}
+
+function doAdvSearch(){
+
+    let mess = '';
+    let keyWord = $('#txtKEYWORD').val().trim();
+    keyWord = getWords(keyWord, 100);
+    if (!keyWord) {
+        mess += 'Bạn vui lòng nhập từ khóa tìm kiếm!\n';
+    }
+    let tinhThanhValue = $('#cboTINH_THANH').val();
+    let boNganhValue = $('#cboBO_NGANH').val();
+    var rdoBO = $("input[name='cap_thuc_hien']:checked").val();
+
+    if (((!tinhThanhValue || '-1' == tinhThanhValue) && rdoBO != 'bonganh') || (rdoBO == 'bonganh' && (!boNganhValue || '-1' == boNganhValue))) {
+        mess += 'Bạn phải chọn ít nhất một Tỉnh/ Thành phố hoặc một Bộ ngành!\n';
+    }
+
+    if (mess) {
+        toastr.warning(mess);
+        return;
+    }
+
+    var rdoSO = $("input[name='quan_huyen_or_so']:checked").val();
+    if (rdoBO != 'bonganh' && $('#cboTINH_THANH').val() && $('#cboTINH_THANH').val() != '-1' && ($('#cboQUAN_HUYEN').val() == '-1' || !$('#cboQUAN_HUYEN').val()) && ($('#cboSO').val() == '-1' || !$('#cboSO').val()) && ($('#cboPHUONG_XA').val() == '-1' || !$('#cboPHUONG_XA').val())) {
+
+        var params = 'originKey=' + encodeURIComponent(keyWord) + '&tukhoa=' + keyWord.replace(/[&\/\\#,+()$~%'":*?<>{}^]/g,' ').trim()
+        params+= "&tinh_thanh="+(($('#cboTINH_THANH').val() == '-1' || !$('#cboTINH_THANH').val()  || rdoBO == 'bonganh') ? "" : $('#cboTINH_THANH option:selected').text());
+        window.location = 'dvc-ket-qua-thu-tuc.html?' + params;
+    } else {
+
+        var params = "tu_khoa=" + keyWord;
+        //params += "&bo_nganh="+(($('#cboBO').val() != '-1' || !$('#cboBO').val() || rdoBO != 'bonganh') ? "" : $('#cboBO option:selected').text());
+        params += "&bo_nganh=" + ($('#cboBO_NGANH option:selected').text());
+        params += "&tinh_thanh=" + (($('#cboTINH_THANH').val() == '-1' || !$('#cboTINH_THANH').val() || rdoBO == 'bonganh') ? "" : $('#cboTINH_THANH option:selected').text());
+        params += "&so=" + (($('#cboSO').val() == '-1' || !$('#cboSO').val() || rdoSO != 'so') ? "" : $('#cboSO option:selected').text());
+        params += "&quan_huyen=" + (($('#cboQUAN_HUYEN').val() == '-1' || !$('#cboQUAN_HUYEN').val() || rdoSO == 'so') ? "" : $('#cboQUAN_HUYEN option:selected').text());
+        params += "&phuong_xa=" + (($('#cboPHUONG_XA').val() == '-1' || !$('#cboPHUONG_XA').val() || rdoSO == 'so') ? "" : $('#cboPHUONG_XA option:selected').text());
+        params += "&id_tinh_thanh=" + $('#cboTINH_THANH').val();
+        params += "&id_quan_huyen=" + $('#cboQUAN_HUYEN').val();
+        params += "&id_phuong_xa=" + $('#cboPHUONG_XA').val();
+        params += "&id_so=" + $('#cboSO').val();
+        params += "&id_bo_nganh=" + $('#cboBO_NGANH').val();
+        window.location = 'dvc-danh-sach-dich-vu-cong.html?' + params;
+    }
+
+    $('#advsearch').modal('hide');
+}
+$(document).ready(function(){
+    $("#searchKeyWord").keyup(function (e){
+        if (e.which == 13) {
+            searchProcedure();
+        }
+    });
+    bindEvent();
+});
+
+function changeHeight(){
+    var vl = 1 - $('#popupChange').attr('height');
+    $('#popupChange').attr('height', vl);
+    $('#popupChange').css('height', vl + "px");
+}
+
+function bindEvent(){
+    $('#searchKeyWord').keydown(function(e){
+        if (e.keyCode == 13) {
+            searchProcedure();
+        }
+    });
+    $('#advsearch').on('hidden.bs.modal', function () {
+        $('#divClosePopupSearch').click();
+    });
+    $('#divClosePopupSearch').click(function(){
+        $("#txtKEYWORD").val('');
+        $('#rdoTINH_THANH').click();
+        $('#rdoQUAN_HUYEN').click();
+        $("#cboTINH_THANH").change();
+        getLocation("dvcqg_get_phuong_xa_by_selected", "huyen_id", -1, "cboPHUONG_XA");
+        $('#advsearch').modal('hide');
+
+    });
+
+    $('#rdoTINH_THANH').click(function(){
+        changeHeight();
+        $('#hide_for_bo_nganh').show();
+        $('#cboBO_NGANH').select2().next().hide();
+        $('#cboTINH_THANH').select2().next().show();
+        getLocation("dvcqg_get_tinh_thanh_by_selected_v2", null, null, "cboTINH_THANH");
+        getLocation("dvcqg_get_quan_huyen_by_selected_v2", "tinh_id", -1, "cboQUAN_HUYEN");
+        getLocation("dvcqg_get_so_by_selected_v2", "tinh_id", -1, "cboSO");
+        getLocation("dvcqg_get_phuong_xa_by_selected_v2", "huyen_id", -1, "cboPHUONG_XA");
+        if ($("input[name='quan_huyen_or_so']:checked").val() == "so") {
+
+            $('#cboQUAN_HUYEN,#cboPHUONG_XA').select2().next().hide();
+            $('#cboSO').select2().next().show();
+        } else {
+            $('#cboQUAN_HUYEN,#cboPHUONG_XA').select2().next().show();
+            $('#cboSO').select2().next().hide();
+
+        }
+    });
+    $('#rdoBO_NGANH').click(function(){
+        changeHeight();
+        $('#hide_for_bo_nganh').hide();
+        $('#cboBO_NGANH').select2().next().show();
+        $('#cboTINH_THANH').select2().next().hide();
+        getLocation("dvcqg_get_bo_nganh_by_selected_v2", null, null, "cboBO_NGANH");
+    });
+
+    $('#rdoQUAN_HUYEN').click(function(){
+        $('#cboQUAN_HUYEN,#cboPHUONG_XA').select2().next().show();
+        $('#cboSO').select2().next().hide();
+        getLocation("dvcqg_get_quan_huyen_by_selected_v2", "tinh_id", $("#cboTINH_THANH").val(), "cboQUAN_HUYEN");
+        getLocation("dvcqg_get_phuong_xa_by_selected_v2", "huyen_id", -1, "cboPHUONG_XA");
+    });
+
+    $('#rdoSO').click(function(){
+        $('#cboQUAN_HUYEN,#cboPHUONG_XA').select2().next().hide();
+        $('#cboSO').select2().next().show();
+        getLocation("dvcqg_get_so_by_selected_v2", "tinh_id", $("#cboTINH_THANH").val(), "cboSO");
+    });
+
+    $("#cboTINH_THANH,#cboQUAN_HUYEN,#cboPHUONG_XA,#cboSO,#cboBO_NGANH").select2({
+        allowClear: true,
+        width: "100%",
+    });
+    $('#cboSO,#cboBO_NGANH').select2().next().hide();
+
+    $("#cboTINH_THANH").change(function () {
+        getLocation("dvcqg_get_so_by_selected", "tinh_id", $("#cboTINH_THANH").val(), "cboSO");
+        getLocation("dvcqg_get_quan_huyen_by_selected_v2", "tinh_id", $("#cboTINH_THANH").val(), "cboQUAN_HUYEN");
+        getLocation("dvcqg_get_phuong_xa_by_selected_v2", "huyen_id", -1, "cboPHUONG_XA");
+        if ($("input[name='quan_huyen_or_so']:checked").val() == "so") {
+
+            $('#cboQUAN_HUYEN,#cboPHUONG_XA').select2().next().hide();
+            $('#cboSO').select2().next().show();
+        } else {
+            $('#cboQUAN_HUYEN,#cboPHUONG_XA').select2().next().show();
+            $('#cboSO').select2().next().hide();
+
+        }
+
+    });
+    $("#cboQUAN_HUYEN").change(function () {
+        getLocation("dvcqg_get_phuong_xa_by_selected_v2", "huyen_id", $("#cboQUAN_HUYEN").val(), "cboPHUONG_XA");
+    });
+}
+
+//suggestion search
+function sugggestProcedure(keyword) {
+    var obj = new Object();
+    obj.key_search = 'al:"' + keyword +'"~5';
+    obj.page_size = 5;
+    obj.start_row = 0;
+    obj.source_data = "thu_tuc_v1";
+    obj.type = "fts";
+    var result = apiservice.AjaxJson.executeQuery(obj);
+    var dataMap = result.response.docs.map(function (i) {
+        return {
+            name: i.ten_thu_tuc,
+            link: i.ten_thu_tuc,
+            id: i.ma_thu_tuc
+        }
+    });
+
+    return dataMap;
+}
+
+jQuery(document).ready(function($) {
+
+    var engine = new Bloodhound({
+        remote: {
+            url: '/jsp/procedure-typehead.jsp?keyword=al:"%QUERY%"~5',
+            wildcard: '%QUERY%'
+        },
+        datumTokenizer: Bloodhound.tokenizers.whitespace('keyword'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace
+    });
+
+    $(".search-input").typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 3
+    }, {
+        source: engine.ttAdapter(),
+        displayKey: 'ten_thu_tuc',
+        name: 'usersList',
+        templates: {
+            empty: [
+                '<div class="list-group search-results-dropdown"><div class="list-group-item">Không có kết quả phù hợp.</div></div>'
+            ],
+            header: [
+                '<div class="list-group search-results-dropdown">'
+            ],
+            suggestion: function (data) {
+                console.log(data);
+                if (data.isnganhdoc == 1) {
+                    return '<a href="dvc-chi-tiet-thu-tuc-nganh-doc.html?ma_thu_tuc=' + data.ma_thu_tuc + '" class="list-group-item">' + data.ten_thu_tuc + '</a>'
+                }
+                return '<a href="dvc-chi-tiet-thu-tuc-hanh-chinh.html?ma_thu_tuc=' + data.ma_thu_tuc + '" class="list-group-item">' + data.ten_thu_tuc + '</a>'
+            }
+        }
+    });
+    $('#searchKeyWord:text:visible:first').focus();
+});
+
+</script> 
+  <script type="text/javascript">
+
+    //
+    function autoSetmenu() {
+        var path = window.location.pathname;
+        var isRemoveDropdown = false;
+
+        // Cau hoi
+        if (path == '/p/home/dvc-chi-tiet-cau-hoi.html'){
+            path = '/p/home/dvc-cau-hoi-pho-bien.html';
+        }
+
+        // Huong dan su dung
+        if (path == '/p/home/dvc-huong-dan-bo-nganh-dia-phuong.html' || path == '/p/home/dvc-phan-mem-ho-tro.html' || path == '/p/home/dvc-thiet-ke-giao-dien.html' ||
+            path == '/p/home/dvc-nop-tien-dien.html' || path == '/p/home/dvc-liet-ket-giao-duc.html'
+            ){
+            path = '/p/dvc-huong-dan-cong-dan-doanh-nghiep.html';
+        }
+
+        // Thu tuc hanh hinh cong dan - doanh nghiep
+        if (path == '/p/home/dvc-ket-qua-thu-tuc-cho-cong-dan.html'
+                || path == '/p/home/dvc-chi-tiet-dich-vu-cho-cong-dan.html'
+                || path == '/p/home/dvc-chi-tiet-nhom-su-kien-cho-cong-dan.html'
+            ){
+            path = '/p/home/dvc-trang-chu-cong-dan.html';
+        }else if (path == '/p/home/dvc-ket-qua-thu-tuc-cho-doanh-nghiep.html'
+                || path == '/p/home/dvc-chi-tiet-dich-vu-cho-doanh-nghiep.html'
+                || path == '/p/home/dvc-chi-tiet-nhom-su-kien-cho-doanh-nghiep.html'
+            ){
+            path = '/p/home/dvc-trang-chu-doanh-nghiep.html';
+        }else if (path == '/p/home/dvc-danh-sach-thu-tuc-theo-nhom-su-kien.html'
+                || path == '/p/home/dvc-danh-sach-cau-hoi-theo-nhom-su-kien.html'
+            ) {
+            var objectId = GetURLParameter('objectId');
+            if (objectId == 1){
+                path = '/p/home/dvc-trang-chu-cong-dan.html';
+            }else if(objectId == 5){
+                path = '/p/home/dvc-trang-chu-doanh-nghiep.html';
+            }
+        }
+
+        // DVC trực tuyến & đăng ký xe
+        if (path == '/p/home/dvc-dich-vu-cong-truc-tuyen-ds.html'
+                || path == '/p/home/dvc-dich-vu-cong-truc-tuyen.html'
+                || path == '/p/home/dvc-dang-ky-xe.html'
+            ) {
+            path = '/p/home/dvc-dich-vu-cong-truc-tuyen.html';
+        }
+
+        // Chi tiet TTHC va DVC
+        if (path == '/p/home/dvc-chi-tiet-thu-tuc-hanh-chinh.html' 
+                || path == '/p/home/dvc-danh-sach-dich-vu-cong.html'
+                || path == '/p/home/dvc-danh-sach-thu-tuc-theo-su-kien.html'
+                || path == '/p/home/dvc-ket-qua-thu-tuc.html'
+            ) {
+            path = '/p/home/dvc-trang-chu-cong-dan.html';
+            isRemoveDropdown = true;
+        }
+
+        // module TTHC
+        if (path == '/p/home/dvc-tthc-category.html') {
+            path = '/p/home/dvc-tthc-trang-chu.html';
+        }
+        if (path == '/p/home/dvc-tthc-thu-tuc-hanh-chinh-chi-tiet.html') {
+            path = '/p/home/dvc-tthc-thu-tuc-hanh-chinh.html';
+        }
+        if (path == '/p/home/dvc-tthc-thu-tuc-hanh-chinh-lien-thong-chi-tiet.html') {
+            path = '/p/home/dvc-tthc-thu-tuc-hanh-chinh-lien-thong.html';
+        }
+        if (path == '/p/home/dvc-tthc-quyet-dinh-cong-bo-chi-tiet.html') {
+            path = '/p/home/dvc-tthc-quyet-dinh-cong-bo.html';
+        }
+        if (path == '/p/home/dvc-tthc-bonganh-tinhtp.html') {
+            path = '/p/home/dvc-tthc-co-quan.html';
+        }
+
+        if (path == '/p/home/dvc-chi-tiet-tin-tuc.html') {
+            path = '/p/home/dvc-tin-tuc.html';
+        }
+
+        // dvc-cap-ban-sao-tu-ban-chinh
+        if (path == '/p/home/dvc-cap-ban-sao-tu-ban-chinh.html'){
+            path = '/p/home/dvc-trang-chu-cong-dan.html';
+        }
+        //  Đặt lịch hẹn
+        if (path == '/p/home/dvc-cap-ban-sao-tu-ban-chinh-dlh.html'){
+            path = '/p/home/dvc-tra-cuu-ho-so.html';
+        }
+        // Active main menu
+        $("#main-menu li").each(function () {
+            var link = $(this).find(">a").attr("href");
+            if (path.indexOf(link) != -1) {
+                $(this).parents('li').siblings().removeClass("active");
+                $(this).parents('li').addClass("active");
+                $(this).parents('li').find("li").removeClass("active");
+                $(this).addClass("active");
+            }
+        });
+
+        // Active dropdownmenu
+        $("#main-menu > li").each(function () {
+            if ($(this).hasClass("active")) {
+                var html = $(this).find(">ul").html();
+                $(this).addClass("active");
+                $(this).find(">ul").addClass("hidden");
+                $("#list-dropdown").html(html);
+                if($("#bn-ttp").hasClass("active")){
+                    $("#coquan").addClass("active");
+                }
+            }
+        });
+
+        // Remove
+        if (isRemoveDropdown) {
+            $('#list-dropdown > li').removeClass('active');
+        }
+    }
+
+    var pathHDSD = window.location.pathname;
+    $("#regionleft-introduce li").removeClass('active');
+    $("#left-introduce li a").each(function () {
+        var href = $(this).attr('href');
+        if (pathHDSD.indexOf(href) != -1) {
+            $(this).parent().addClass('active');
+        }
+    });
+    $('#left-introduce li:first-child').removeClass('active');
+    $('.child-menus a').each(function(){
+        var href = $(this).attr('href');
+        if (pathHDSD.indexOf(href) != -1) {
+            $(this).parent().addClass('active');
+        }
+    });
+
+    $(document).ready(function(){
+        autoSetmenu();
+    })
+
+
+</script> 
+  <style>
+    .bootbox .modal-footer .btn + .btn {
+        margin-bottom: 0;
+        margin-left: 5px;
+        margin-top: 0px;
+    }
+    .input-captcha .code .number {
+        height: 100%;
+        padding: 2px;
+    }
+</style>   
+ 
+</body></html>

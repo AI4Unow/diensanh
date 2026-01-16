@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trợ lý ảo UBND xã Diên Sanh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #1a5f2a 0%, #2e7d32 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 480px;
+            height: 600px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .chat-header {
+            background: linear-gradient(135deg, #1a5f2a 0%, #2e7d32 100%);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .chat-header .avatar {
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .chat-header .info h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .chat-header .info p {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        /* Messages area */
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: #f5f7f9;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.bot {
+            background: white;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .message.user {
+            background: #1a5f2a;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ef9a9a;
+        }
+
+        .message .sources {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .message .sources a {
+            color: #1a5f2a;
+            text-decoration: none;
+        }
+
+        .message .sources a:hover {
+            text-decoration: underline;
+        }
+
+        /* Typing indicator */
+        .typing {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 16px;
+            align-self: flex-start;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .typing span {
+            width: 8px;
+            height: 8px;
+            background: #1a5f2a;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .typing span:nth-child(1) { animation-delay: 0s; }
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.6; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Input area */
+        .chat-input {
+            padding: 16px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input input:focus {
+            border-color: #1a5f2a;
+        }
+
+        .chat-input button {
+            width: 44px;
+            height: 44px;
+            background: #1a5f2a;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .chat-input button:hover {
+            background: #145220;
+        }
+
+        .chat-input button:active {
+            transform: scale(0.95);
+        }
+
+        .chat-input button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Quick actions */
+        .quick-actions {
+            padding: 10px 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .quick-actions button {
+            padding: 8px 14px;
+            background: #e8f5e9;
+            color: #1a5f2a;
+            border: 1px solid #c8e6c9;
+            border-radius: 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quick-actions button:hover {
+            background: #c8e6c9;
+        }
+
+        /* Responsive */
+        @media (max-width: 520px) {
+            body {
+                padding: 0;
+            }
+            .chat-container {
+                height: 100vh;
+                max-width: 100%;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="avatar">🏛️</div>
+            <div class="info">
+                <h2>Trợ lý ảo UBND xã Diên Sanh</h2>
+                <p>Hỗ trợ thủ tục hành chính 24/7</p>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                Xin chào! Tôi là trợ lý ảo của UBND xã Diên Sanh. Tôi có thể giúp bạn tìm hiểu về:
+                <br><br>
+                • Thủ tục hành chính (khai sinh, kết hôn, hộ khẩu...)<br>
+                • Hồ sơ và giấy tờ cần thiết<br>
+                • Thời gian xử lý và phí/lệ phí<br>
+                • Thông tin liên hệ UBND xã
+                <br><br>
+                Bạn cần hỗ trợ gì?
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <button onclick="sendQuickMessage('Thủ tục đăng ký khai sinh')">📝 Khai sinh</button>
+            <button onclick="sendQuickMessage('Thủ tục đăng ký kết hôn')">💒 Kết hôn</button>
+            <button onclick="sendQuickMessage('Thủ tục cấp giấy xác nhận')">📄 Xác nhận</button>
+            <button onclick="sendQuickMessage('Liên hệ UBND xã')">📞 Liên hệ</button>
+        </div>
+
+        <div class="chat-input">
+            <input
+                type="text"
+                id="userInput"
+                placeholder="Nhập câu hỏi của bạn..."
+                onkeypress="handleKeyPress(event)"
+            >
+            <button onclick="sendMessage()" id="sendBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - UPDATE THIS URL TO YOUR DEPLOYED API
+        const API_URL = window.CHATBOT_API_URL || 'http://localhost:8000';
+
+        const messagesContainer = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+
+        function addMessage(content, type = 'bot', sources = null) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            let html = content.replace(/\n/g, '<br>');
+
+            // Add sources if available
+            if (sources && sources.length > 0) {
+                html += '<div class="sources"><strong>Nguồn tham khảo:</strong><br>';
+                sources.forEach((s, i) => {
+                    if (s.url) {
+                        html += `${i + 1}. <a href="${s.url}" target="_blank">${s.title || 'Xem chi tiết'}</a><br>`;
+                    } else if (s.title) {
+                        html += `${i + 1}. ${s.title}<br>`;
+                    }
+                });
+                html += '</div>';
+            }
+
+            messageDiv.innerHTML = html;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function hideTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            userInput.value = '';
+            sendBtn.disabled = true;
+
+            // Show typing indicator
+            showTyping();
+
+            try {
+                const response = await fetch(`${API_URL}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        include_sources: true
+                    })
+                });
+
+                hideTyping();
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                addMessage(data.response, 'bot', data.sources);
+
+            } catch (error) {
+                hideTyping();
+                console.error('Chat error:', error);
+                addMessage(
+                    'Xin lỗi, đã xảy ra lỗi khi xử lý yêu cầu. Vui lòng thử lại sau hoặc liên hệ trực tiếp UBND xã Diên Sanh.',
+                    'error'
+                );
+            }
+
+            sendBtn.disabled = false;
+            userInput.focus();
+        }
+
+        function sendQuickMessage(message) {
+            userInput.value = message;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Focus input on load
+        userInput.focus();
+    </script>
+</body>
+</html>

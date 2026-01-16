@@ -1,0 +1,31 @@
+# Diên Sanh Chatbot - Python Dependencies
+# Compatible with Python 3.12+
+
+# Web scraping
+playwright>=1.40.0
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# Vector store - using lightweight alternative for Python 3.14 compatibility
+chromadb-client>=0.5.0  # Client-only, no onnxruntime dependency
+
+# For embeddings, we'll use the API instead of local models
+# This avoids onnxruntime/torch compatibility issues
+
+# API server
+fastapi>=0.100.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+
+# LLM client (OpenAI-compatible for api.ai4u.now)
+openai>=1.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+httpx>=0.25.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# For simple vector similarity without heavy ML dependencies
+numpy>=1.26.0
+scikit-learn>=1.4.0
