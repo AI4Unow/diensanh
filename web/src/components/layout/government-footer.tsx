@@ -7,7 +7,7 @@ interface GovernmentFooterProps {
 export function GovernmentFooter({ className }: GovernmentFooterProps) {
   return (
     <footer className={cn(
-      "bg-slate-50 border-t-4 border-gov-red mt-auto",
+      "bg-primary-900 text-primary-100 border-t-4 border-gov-red mt-auto",
       className
     )}>
       {/* Main footer content */}
@@ -15,8 +15,8 @@ export function GovernmentFooter({ className }: GovernmentFooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Contact Information */}
           <div>
-            <h3 className="font-bold text-primary-600 mb-4">Thông tin liên hệ</h3>
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="font-bold text-white mb-4">Thông tin liên hệ</h3>
+            <div className="space-y-2 text-sm text-primary-200">
               <p>
                 <strong>Địa chỉ:</strong><br />
                 UBND Xã Diên Sanh<br />
@@ -33,8 +33,8 @@ export function GovernmentFooter({ className }: GovernmentFooterProps) {
 
           {/* Working Hours */}
           <div>
-            <h3 className="font-bold text-primary-600 mb-4">Giờ làm việc</h3>
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <h3 className="font-bold text-white mb-4">Giờ làm việc</h3>
+            <div className="space-y-2 text-sm text-primary-200">
               <p>
                 <strong>Thứ 2 - Thứ 6:</strong><br />
                 7:30 - 11:30 | 13:30 - 17:00
@@ -51,32 +51,32 @@ export function GovernmentFooter({ className }: GovernmentFooterProps) {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-bold text-primary-600 mb-4">Liên kết nhanh</h3>
+            <h3 className="font-bold text-white mb-4">Liên kết nhanh</h3>
             <div className="space-y-2">
               <a
                 href="/privacy"
-                className="block text-sm text-muted-foreground hover:text-primary-600 transition-colors cursor-pointer"
+                className="block text-sm text-primary-200 hover:text-white transition-colors cursor-pointer"
                 style={{ minHeight: 'var(--spacing-touch)' }}
               >
                 Chính sách bảo mật
               </a>
               <a
                 href="/accessibility"
-                className="block text-sm text-muted-foreground hover:text-primary-600 transition-colors cursor-pointer"
+                className="block text-sm text-primary-200 hover:text-white transition-colors cursor-pointer"
                 style={{ minHeight: 'var(--spacing-touch)' }}
               >
                 Tuyên bố trợ năng
               </a>
               <a
                 href="/sitemap"
-                className="block text-sm text-muted-foreground hover:text-primary-600 transition-colors cursor-pointer"
+                className="block text-sm text-primary-200 hover:text-white transition-colors cursor-pointer"
                 style={{ minHeight: 'var(--spacing-touch)' }}
               >
                 Sơ đồ trang web
               </a>
               <a
                 href="/feedback"
-                className="block text-sm text-muted-foreground hover:text-primary-600 transition-colors cursor-pointer"
+                className="block text-sm text-primary-200 hover:text-white transition-colors cursor-pointer"
                 style={{ minHeight: 'var(--spacing-touch)' }}
               >
                 Góp ý - Phản hồi
@@ -86,13 +86,13 @@ export function GovernmentFooter({ className }: GovernmentFooterProps) {
 
           {/* Government Links */}
           <div>
-            <h3 className="font-bold text-primary-600 mb-4">Liên kết chính phủ</h3>
+            <h3 className="font-bold text-white mb-4">Liên kết chính phủ</h3>
             <div className="space-y-2">
               <a
                 href="https://chinhphu.vn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-sm text-muted-foreground hover:text-primary-600 transition-colors cursor-pointer"
+                className="block text-sm text-primary-200 hover:text-white transition-colors cursor-pointer"
                 style={{ minHeight: 'var(--spacing-touch)' }}
               >
                 Cổng thông tin Chính phủ
@@ -101,7 +101,7 @@ export function GovernmentFooter({ className }: GovernmentFooterProps) {
                 href="https://quangtri.gov.vn"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-sm text-muted-foreground hover:text-primary-600 transition-colors cursor-pointer"
+                className="block text-sm text-primary-200 hover:text-white transition-colors cursor-pointer"
                 style={{ minHeight: 'var(--spacing-touch)' }}
               >
                 UBND Tỉnh Quảng Trị

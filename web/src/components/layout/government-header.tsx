@@ -14,19 +14,21 @@ export function GovernmentHeader({
 }: GovernmentHeaderProps) {
   return (
     <header className={cn(
-      "bg-white border-b-4 border-gov-red shadow-sm",
+      "bg-primary-600 text-white sticky top-0 z-50 shadow-md",
       className
     )}>
+      {/* Red accent bar at top */}
+      <div className="h-1 bg-gov-red w-full" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Left: National Emblem + Agency Info */}
           <div className="flex items-center space-x-4">
             <NationalEmblem size="lg" />
             <div className="flex flex-col">
-              <h1 className="text-xl font-bold text-primary-600 leading-tight">
+              <h1 className="text-xl font-bold text-white leading-tight">
                 UBND XÃ DIÊN SANH
               </h1>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-primary-100">
                 Tỉnh Quảng Trị
               </p>
             </div>
@@ -40,7 +42,7 @@ export function GovernmentHeader({
                   <input
                     type="search"
                     placeholder="Tìm kiếm dịch vụ..."
-                    className="w-64 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-64 px-4 py-2 border border-primary-300 bg-white text-foreground rounded-lg focus:ring-2 focus:ring-gov-gold focus:border-transparent"
                     style={{ minHeight: 'var(--spacing-touch)' }}
                   />
                   <button
@@ -74,7 +76,7 @@ export function GovernmentHeader({
             <input
               type="search"
               placeholder="Tìm kiếm dịch vụ..."
-              className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-primary-300 bg-white text-foreground rounded-lg focus:ring-2 focus:ring-gov-gold focus:border-transparent"
               style={{ minHeight: 'var(--spacing-touch)' }}
             />
             <button
