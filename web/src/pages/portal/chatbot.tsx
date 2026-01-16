@@ -104,8 +104,8 @@ export function ChatbotPage() {
               <Bot className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-lg font-bold">Trợ lý ảo</h1>
-              <p className="text-xs text-muted-foreground">Hỗ trợ 24/7</p>
+              <h1 className="text-lg font-bold text-foreground">Trợ lý ảo</h1>
+              <p className="text-xs text-text-secondary">Hỗ trợ 24/7</p>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@ export function ChatbotPage() {
                 <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                 <p className={cn(
                   'text-xs mt-1',
-                  message.role === 'assistant' ? 'text-muted-foreground' : 'text-primary-200'
+                  message.role === 'assistant' ? 'text-text-secondary' : 'text-primary-200'
                 )}>
                   {message.timestamp.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
                 </p>
@@ -155,9 +155,9 @@ export function ChatbotPage() {
               </div>
               <div className="bg-white border rounded-2xl px-4 py-3">
                 <div className="flex gap-1">
-                  <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <span className="w-2 h-2 bg-text-secondary rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="w-2 h-2 bg-text-secondary rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="w-2 h-2 bg-text-secondary rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
             </div>
@@ -194,7 +194,7 @@ export function ChatbotPage() {
               )}
             </button>
           </div>
-          <p className="text-xs text-muted-foreground text-center mt-2">
+          <p className="text-xs text-text-secondary text-center mt-2">
             Trợ lý ảo có thể mắc lỗi. Vui lòng xác minh thông tin quan trọng.
           </p>
         </div>
