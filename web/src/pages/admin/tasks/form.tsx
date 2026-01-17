@@ -92,11 +92,13 @@ export function TaskFormPage() {
     } else {
       setFormData({ ...formData, assignedTo: [...formData.assignedTo, villageId] })
     }
+    if (errors.assignedTo) setErrors({ ...errors, assignedTo: '' })
   }
 
   const selectAllVillages = () => {
     if (villages) {
       setFormData({ ...formData, assignedTo: villages.map((v) => v.id) })
+      if (errors.assignedTo) setErrors({ ...errors, assignedTo: '' })
     }
   }
 
@@ -150,7 +152,10 @@ export function TaskFormPage() {
             <input
               type="text"
               value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              onChange={(e) => {
+                setFormData({ ...formData, title: e.target.value })
+                if (errors.title) setErrors({ ...errors, title: '' })
+              }}
               placeholder="VD: Khảo sát tình hình dân cư"
               className={cn(
                 'w-full px-3 py-2.5 rounded-lg border bg-background',
@@ -196,7 +201,10 @@ export function TaskFormPage() {
             </label>
             <textarea
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) => {
+                setFormData({ ...formData, description: e.target.value })
+                if (errors.description) setErrors({ ...errors, description: '' })
+              }}
               rows={4}
               placeholder="Mô tả chi tiết công việc cần thực hiện..."
               className={cn(

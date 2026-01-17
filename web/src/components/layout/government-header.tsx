@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils"
 import { Link } from "react-router-dom"
+import { useAuth } from "@/hooks/use-auth"
 
 interface GovernmentHeaderProps {
   className?: string
@@ -12,6 +13,7 @@ export function GovernmentHeader({
   showSearch = false,
   showLogin = false
 }: GovernmentHeaderProps) {
+  const { user, logout } = useAuth()
   return (
     <header className={cn("sticky top-0 z-50 shadow-md", className)}>
       {/* Banner Image with Login Button Overlay */}
@@ -23,9 +25,21 @@ export function GovernmentHeader({
           loading="eager"
         />
 
-        {/* Login Button Overlay */}
-        {showLogin && (
-          <div className="absolute right-4 top-1/2 -translate-y-1/2">
+        {/* Login/Profile Button Overlay */}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+          {user ? (
+            <div className="flex items-center gap-3">
+              <span className="hidden md:inline-block text-white font-medium text-shadow">
+                {user.displayName || user.email || 'Người dân'}
+              </span>
+              <button
+                onClick={() => logout()}
+                className="bg-white/90 hover:bg-white text-gov-red px-4 py-2 rounded-lg font-medium transition-colors shadow-md text-sm"
+              >
+                Đăng xuất
+              </button>
+            </div>
+          ) : showLogin && (
             <Link
               to="/login"
               className="bg-white/90 hover:bg-white text-gov-red px-6 py-2 rounded-lg font-medium transition-colors shadow-md"
@@ -33,8 +47,8 @@ export function GovernmentHeader({
             >
               Đăng nhập
             </Link>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Mobile search (if enabled) */}

@@ -20,6 +20,7 @@ const PortalHomePage = lazy(() => import('@/pages/portal/index').then(m => ({ de
 const AnnouncementsPage = lazy(() => import('@/pages/portal/announcements').then(m => ({ default: m.AnnouncementsPage })))
 const RequestFormPage = lazy(() => import('@/pages/portal/request-form').then(m => ({ default: m.RequestFormPage })))
 const ChatbotPage = lazy(() => import('@/pages/portal/chatbot').then(m => ({ default: m.ChatbotPage })))
+const SearchPage = lazy(() => import('@/pages/portal/search').then(m => ({ default: m.SearchPage })))
 const NotFoundPage = lazy(() => import('@/pages/not-found').then(m => ({ default: m.NotFoundPage })))
 
 // Loading fallback component
@@ -280,6 +281,7 @@ export function AppRoutes() {
           <Route path="/portal/requests" element={<RequestFormPage />} /> {/* TODO: Create Requests list page, using Form for now or NotFound */}
           <Route path="/portal/request-form" element={<RequestFormPage />} />
           <Route path="/portal/chatbot" element={<ChatbotPage />} />
+          <Route path="/portal/search" element={<SearchPage />} />
 
           {/* Default redirect */}
           <Route path="/" element={<Navigate to="/portal" replace />} />

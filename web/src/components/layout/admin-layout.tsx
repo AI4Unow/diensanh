@@ -77,7 +77,7 @@ export function AdminLayout({ children, breadcrumbs = [] }: AdminLayoutProps) {
 
       {/* Mobile Bottom Navigation */}
       <nav aria-label="Menu di động" className="lg:hidden">
-        <MobileNav />
+        <MobileNav onMoreClick={() => setMobileSidebarOpen(true)} />
       </nav>
     </div>
   )

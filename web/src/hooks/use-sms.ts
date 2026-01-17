@@ -15,6 +15,8 @@ import { db } from '@/config/firebase'
 import { sendBulkSMS } from '@/lib/sms'
 import type { SMSMessage, SMSStatus } from '@/types'
 import type { SMSRecipient, SMSBatchResult } from '@/lib/sms'
+import { APP_CONFIG } from '@/config/app-config'
+import { MockStorage } from '@/lib/mock-storage'
 
 const SMS_KEY = ['sms-messages']
 
@@ -25,6 +27,12 @@ export function useSMSMessages(options?: { limit?: number; status?: SMSStatus })
   return useQuery({
     queryKey: [...SMS_KEY, options],
     queryFn: async () => {
+      // MOCK DATA
+      if (APP_CONFIG.USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 500))
+        return MockStorage.getSMSMessages(options) as SMSMessage[]
+      }
+
       let q = query(
         collection(db, 'sms_messages'),
         orderBy('createdAt', 'desc'),
@@ -66,6 +74,29 @@ export function useSendSMS() {
 
   return useMutation({
     mutationFn: async ({ recipients, content, sentBy, targetVillages }: SendSMSInput) => {
+      // MOCK DATA
+      if (APP_CONFIG.USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 800))
+        const newSMS = {
+          id: `sms-${Date.now()}`,
+          recipients: recipients.map(r => r.phone),
+          content,
+          status: 'sent',
+          sentBy,
+          targetVillages: targetVillages || [],
+          deliveredCount: recipients.length,
+          failedCount: 0,
+          createdAt: new Date().toISOString(),
+          sentAt: new Date().toISOString(),
+        }
+        MockStorage.createSMS(newSMS)
+        return {
+          messageId: newSMS.id,
+          totalSent: recipients.length,
+          totalFailed: 0,
+        }
+      }
+
       // Create SMS record in Firestore first
       const smsDoc = await addDoc(collection(db, 'sms_messages'), {
         recipients: recipients.map((r) => r.phone),

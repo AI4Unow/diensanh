@@ -158,6 +158,49 @@ class MockStorageService {
             updatedAt: r.updatedAt ? new Date(r.updatedAt) : undefined,
         }))
     }
+    // SMS Messages
+    getSMSMessages(options?: { limit?: number; status?: 'pending' | 'sent' | 'failed' | 'delivered' }): any[] {
+        const stored = localStorage.getItem('diensanh:mock:sms')
+        let messages = stored ? JSON.parse(stored) : []
+
+        // Parse dates
+        messages = messages.map((m: any) => ({
+            ...m,
+            createdAt: new Date(m.createdAt),
+            sentAt: m.sentAt ? new Date(m.sentAt) : undefined,
+        }))
+
+        // Sort by createdAt desc
+        messages.sort((a: any, b: any) => b.createdAt.getTime() - a.createdAt.getTime())
+
+        if (options?.status) {
+            messages = messages.filter((m: any) => m.status === options.status)
+        }
+
+        if (options?.limit) {
+            messages = messages.slice(0, options.limit)
+        }
+
+        return messages
+    }
+
+    createSMS(message: any): void {
+        const stored = localStorage.getItem('diensanh:mock:sms')
+        const messages = stored ? JSON.parse(stored) : []
+        messages.push(message)
+        localStorage.setItem('diensanh:mock:sms', JSON.stringify(messages))
+    }
+
+    updateSMS(id: string, updates: any): void {
+        const stored = localStorage.getItem('diensanh:mock:sms')
+        const messages = stored ? JSON.parse(stored) : []
+        const index = messages.findIndex((m: any) => m.id === id)
+
+        if (index !== -1) {
+            messages[index] = { ...messages[index], ...updates }
+            localStorage.setItem('diensanh:mock:sms', JSON.stringify(messages))
+        }
+    }
 }
 
 export const MockStorage = new MockStorageService()

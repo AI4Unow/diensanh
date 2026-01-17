@@ -45,7 +45,7 @@ export function useLoginMutation() {
       const user = userCredential.user
 
       if (!user) {
-        throw new Error('User not found after login')
+        throw new Error('Không tìm thấy thông tin người dùng sau khi đăng nhập')
       }
 
       const userRef = doc(db, 'users', user.uid)
