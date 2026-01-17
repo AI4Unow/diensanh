@@ -43,6 +43,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
           const parsedUserDoc = JSON.parse(testUserDoc)
           const parsedAuthUser = JSON.parse(testAuthUser)
 
+          // Convert date strings back to Date objects
+          if (parsedUserDoc) {
+            if (parsedUserDoc.createdAt) {
+              parsedUserDoc.createdAt = new Date(parsedUserDoc.createdAt)
+            }
+            if (parsedUserDoc.updatedAt) {
+              parsedUserDoc.updatedAt = new Date(parsedUserDoc.updatedAt)
+            }
+          }
+
           setUser(parsedAuthUser)
           setUserDoc(parsedUserDoc)
           setError(null)
@@ -54,6 +64,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
       // If test mode but no valid test data, continue with normal flow
       setLoading(false)
+      // Don't subscribe to Firebase Auth in test mode to prevent overrides
+      return
     }
 
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {

@@ -143,10 +143,51 @@ export function AppRoutes() {
             }
           />
           <Route
+            path="/admin/households/new"
+            element={
+              <ProtectedRoute allowedRoles={['commune_admin']}>
+                <HouseholdFormPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/admin/households"
             element={
               <ProtectedRoute allowedRoles={['commune_admin']}>
                 <HouseholdsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/households/:householdId"
+            element={
+              <ProtectedRoute allowedRoles={['commune_admin']}>
+                <HouseholdDetailPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/households/:householdId/edit"
+            element={
+              <ProtectedRoute allowedRoles={['commune_admin']}>
+                <HouseholdFormPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/households/:householdId/residents/new"
+            element={
+              <ProtectedRoute allowedRoles={['commune_admin']}>
+                <ResidentFormPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/households/:householdId/residents/:residentId/edit"
+            element={
+              <ProtectedRoute allowedRoles={['commune_admin']}>
+                <ResidentFormPage />
               </ProtectedRoute>
             }
           />
@@ -209,10 +250,26 @@ export function AppRoutes() {
             }
           />
           <Route
-            path="/village/*"
+            path="/village/households"
             element={
               <ProtectedRoute allowedRoles={['village_leader']}>
-                <VillageDashboardPage />
+                <HouseholdsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/village/tasks"
+            element={
+              <ProtectedRoute allowedRoles={['village_leader']}>
+                <TasksPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/village/tasks/:taskId"
+            element={
+              <ProtectedRoute allowedRoles={['village_leader']}>
+                <TaskDetailPage />
               </ProtectedRoute>
             }
           />
@@ -220,7 +277,8 @@ export function AppRoutes() {
           {/* Public portal routes - no auth required */}
           <Route path="/portal" element={<PortalHomePage />} />
           <Route path="/portal/announcements" element={<AnnouncementsPage />} />
-          <Route path="/portal/requests/new" element={<RequestFormPage />} />
+          <Route path="/portal/requests" element={<RequestFormPage />} /> {/* TODO: Create Requests list page, using Form for now or NotFound */}
+          <Route path="/portal/request-form" element={<RequestFormPage />} />
           <Route path="/portal/chatbot" element={<ChatbotPage />} />
 
           {/* Default redirect */}

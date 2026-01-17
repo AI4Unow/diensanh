@@ -4,14 +4,23 @@ import { Plus, Search, Home, Users, ChevronRight, ArrowLeft } from 'lucide-react
 import { AdminLayout } from '@/components/layout/admin-layout'
 import { useHouseholds } from '@/hooks/use-households'
 import { useVillage } from '@/hooks/use-villages'
+import { useAuth } from '@/hooks/use-auth'
 import { cn } from '@/lib/utils'
 import type { Household } from '@/types'
 
 export function HouseholdsPage() {
   const { villageId } = useParams<{ villageId: string }>()
-  const { data: village } = useVillage(villageId)
-  const { data: households, isLoading } = useHouseholds(villageId)
+  const { userDoc } = useAuth()
+
+  // Use villageId from URL or fallback to user's assigned village
+  const effectiveVillageId = villageId || (userDoc?.role === 'village_leader' ? userDoc.villageId : undefined)
+
+  const { data: village } = useVillage(effectiveVillageId)
+  const { data: households, isLoading } = useHouseholds(effectiveVillageId)
   const [search, setSearch] = useState('')
+
+  // Determine base path for links
+  const isVillageLeader = userDoc?.role === 'village_leader'
 
   // Filter households
   const filteredHouseholds = households?.filter((h) =>
@@ -25,9 +34,9 @@ export function HouseholdsPage() {
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center gap-4">
-          {villageId && (
+          {!isVillageLeader && effectiveVillageId && (
             <Link
-              to={`/admin/villages/${villageId}`}
+              to={`/admin/villages/${effectiveVillageId}`}
               className="p-2 hover:bg-muted rounded-lg transition-colors"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -40,7 +49,7 @@ export function HouseholdsPage() {
             )}
           </div>
           <Link
-            to={villageId ? `/admin/villages/${villageId}/households/new` : '/admin/households/new'}
+            to={isVillageLeader ? '/village/households/new' : (effectiveVillageId ? `/admin/villages/${effectiveVillageId}/households/new` : '/admin/households/new')}
             className={cn(
               'flex items-center gap-2 px-4 py-2 rounded-lg',
               'bg-primary-600 text-white hover:bg-primary-700 transition-colors'
@@ -95,7 +104,7 @@ export function HouseholdsPage() {
                   </tr>
                 ) : (
                   filteredHouseholds?.map((household) => (
-                    <HouseholdRow key={household.id} household={household} villageId={villageId} />
+                    <HouseholdRow key={household.id} household={household} villageId={effectiveVillageId} isVillageLeader={isVillageLeader} />
                   ))
                 )}
               </tbody>
@@ -107,8 +116,10 @@ export function HouseholdsPage() {
   )
 }
 
-function HouseholdRow({ household, villageId }: { household: Household; villageId?: string }) {
-  const basePath = villageId ? `/admin/villages/${villageId}/households` : '/admin/households'
+function HouseholdRow({ household, villageId, isVillageLeader }: { household: Household; villageId?: string; isVillageLeader?: boolean }) {
+  const basePath = isVillageLeader
+    ? '/village/households'
+    : (villageId ? `/admin/villages/${villageId}/households` : '/admin/households')
 
   return (
     <tr className="hover:bg-muted/30 transition-colors">

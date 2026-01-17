@@ -7,11 +7,17 @@ import { PendingTasks } from '@/components/dashboard/pending-tasks'
 import { QuickActions } from '@/components/dashboard/quick-actions'
 import { useAuth } from '@/hooks/use-auth'
 import { useVillage } from '@/hooks/use-villages'
+import { useTasks } from '@/hooks/use-tasks'
 import { formatDateTime } from '@/lib/utils'
 
 export function VillageDashboardPage() {
   const { userDoc } = useAuth()
-  const { data: village, isLoading } = useVillage(userDoc?.villageId)
+  const { data: village, isLoading: isLoadingVillage } = useVillage(userDoc?.villageId)
+  const { data: tasks, isLoading: isLoadingTasks } = useTasks(
+    userDoc?.villageId ? { villageId: userDoc.villageId, status: 'pending' } : undefined
+  )
+
+  const isLoading = isLoadingVillage || isLoadingTasks
 
   return (
     <AdminLayout>
@@ -45,7 +51,7 @@ export function VillageDashboardPage() {
           />
           <StatsCard
             title="Việc cần làm"
-            value={0}
+            value={tasks?.length ?? 0}
             icon={<ClipboardList className="w-5 h-5" />}
             loading={isLoading}
           />

@@ -1,0 +1,187 @@
+import type { Village, Household, Task, Resident } from '@/types'
+
+// Use a fixed date for consistency
+const MOCK_DATE = new Date('2024-01-15T08:00:00')
+
+export const MOCK_VILLAGES: Village[] = [
+    {
+        id: 'village-1',
+        name: 'Thôn An Lợi',
+        region: 'dien_sanh_cu',
+        code: 'AL',
+        type: 'thon',
+        householdCount: 25,
+        residentCount: 98,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    {
+        id: 'village-2',
+        name: 'Thôn Bình An',
+        region: 'hai_truong',
+        code: 'BA',
+        type: 'thon',
+        householdCount: 18,
+        residentCount: 72,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    {
+        id: 'village-3',
+        name: 'Thôn Cát Tường',
+        region: 'hai_dinh',
+        code: 'CT',
+        type: 'kdc',
+        householdCount: 30,
+        residentCount: 120,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    }
+]
+
+export const MOCK_HOUSEHOLDS: Household[] = [
+    {
+        id: 'hh-1',
+        code: 'HK001',
+        villageId: 'village-1',
+        headName: 'Nguyễn Văn A',
+        address: '123 Đường Làng, Thôn An Lợi',
+        memberCount: 4,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    {
+        id: 'hh-2',
+        code: 'HK002',
+        villageId: 'village-1',
+        headName: 'Trần Thị B',
+        address: '124 Đường Làng, Thôn An Lợi',
+        memberCount: 3,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    {
+        id: 'hh-3',
+        code: 'HK003',
+        villageId: 'village-2',
+        headName: 'Lê Văn C',
+        address: '456 Xóm Chùa, Thôn Bình An',
+        memberCount: 5,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    }
+]
+
+export const MOCK_TASKS: Task[] = [
+    {
+        id: 'task-1',
+        title: 'Khảo sát mức sống dân cư năm 2024',
+        description: 'Yêu cầu các trưởng thôn thực hiện rà soát, cập nhật thông tin mức sống của các hộ gia đình trong thôn.',
+        type: 'survey',
+        priority: 'high',
+        status: 'in_progress',
+        assignedTo: ['village-1', 'village-2', 'village-3'],
+        createdBy: 'admin-1',
+        dueDate: new Date('2024-02-01T17:00:00'),
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    {
+        id: 'task-2',
+        title: 'Thông báo lịch tiêm chủng mở rộng',
+        description: 'Phổ biến lịch tiêm chủng tháng 2/2024 đến các hộ gia đình có trẻ nhỏ.',
+        type: 'notification',
+        priority: 'medium',
+        status: 'pending',
+        assignedTo: ['village-1'],
+        createdBy: 'admin-1',
+        dueDate: new Date('2024-01-20T17:00:00'),
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    {
+        id: 'task-3',
+        title: 'Báo cáo tình hình an ninh trật tự dịp Tết',
+        description: 'Tổng hợp và báo cáo tình hình an ninh trật tự, an toàn xã hội trong dịp Tết Nguyên Đán.',
+        type: 'report',
+        priority: 'high',
+        status: 'completed',
+        assignedTo: ['village-1', 'village-2'],
+        createdBy: 'admin-1',
+        dueDate: new Date('2024-01-10T17:00:00'),
+        completedAt: new Date('2024-01-09T10:00:00'),
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    }
+]
+
+export const MOCK_RESIDENTS: Resident[] = [
+    // Household 1 (4 members)
+    {
+        id: 'res-1',
+        householdId: 'hh-1',
+        villageId: 'village-1',
+        name: 'Nguyễn Văn A',
+        fullName: 'Nguyễn Văn A',
+        birthDate: new Date('1980-01-01'),
+        gender: 'male',
+        relationship: 'Chủ hộ',
+        isHead: true,
+        phone: '0901234567',
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    {
+        id: 'res-2',
+        householdId: 'hh-1',
+        villageId: 'village-1',
+        name: 'Trần Thị Vợ',
+        fullName: 'Trần Thị Vợ',
+        birthDate: new Date('1982-05-15'),
+        gender: 'female',
+        relationship: 'Vợ',
+        isHead: false,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    {
+        id: 'res-3',
+        householdId: 'hh-1',
+        villageId: 'village-1',
+        name: 'Nguyễn Văn Con',
+        fullName: 'Nguyễn Văn Con',
+        birthDate: new Date('2005-08-20'),
+        gender: 'male',
+        relationship: 'Con',
+        isHead: false,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    {
+        id: 'res-4',
+        householdId: 'hh-1',
+        villageId: 'village-1',
+        name: 'Nguyễn Thị Út',
+        fullName: 'Nguyễn Thị Út',
+        birthDate: new Date('2010-12-10'),
+        gender: 'female',
+        relationship: 'Con',
+        isHead: false,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    },
+    // Household 3 (Village 2)
+    {
+        id: 'res-5',
+        householdId: 'hh-3',
+        villageId: 'village-2',
+        name: 'Lê Văn C',
+        fullName: 'Lê Văn C',
+        birthDate: new Date('1975-03-10'),
+        gender: 'male',
+        relationship: 'Chủ hộ',
+        isHead: true,
+        createdAt: MOCK_DATE,
+        updatedAt: MOCK_DATE,
+    }
+]

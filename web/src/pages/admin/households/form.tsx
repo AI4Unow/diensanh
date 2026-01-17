@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import { ArrowLeft, Save, Loader2 } from 'lucide-react'
 import { AdminLayout } from '@/components/layout/admin-layout'
 import { useHousehold, useCreateHousehold, useUpdateHousehold } from '@/hooks/use-households'
-import { useVillage } from '@/hooks/use-villages'
+import { useVillage, useVillages } from '@/hooks/use-villages'
 import { cn } from '@/lib/utils'
 
 export function HouseholdFormPage() {
@@ -11,8 +11,17 @@ export function HouseholdFormPage() {
   const navigate = useNavigate()
   const isEditing = !!householdId
 
+  // If villageId is in params, use it. Otherwise, allow selection.
+  const [selectedVillageId, setSelectedVillageId] = useState(villageId || '')
+
   const { data: household, isLoading: loadingHousehold } = useHousehold(villageId, householdId)
+
+  // Fetch current village info if param exists
   const { data: village } = useVillage(villageId)
+
+  // Fetch all villages for selection dropdown (if no param)
+  const { data: villages, isLoading: loadingVillages } = useVillages()
+
   const createHousehold = useCreateHousehold()
   const updateHousehold = useUpdateHousehold()
 
@@ -34,13 +43,24 @@ export function HouseholdFormPage() {
         phone: household.phone || '',
         notes: household.notes || '',
       })
+      if (household.villageId && !selectedVillageId) {
+        setSelectedVillageId(household.villageId)
+      }
     }
   }, [household, isEditing])
 
-  const basePath = `/admin/villages/${villageId}/households`
+  // Update selectedVillageId if param changes (e.g. navigation)
+  useEffect(() => {
+    if (villageId) setSelectedVillageId(villageId)
+  }, [villageId])
+
+  const basePath = villageId
+    ? `/admin/villages/${villageId}/households`
+    : '/admin/households'
 
   const validate = () => {
     const newErrors: Record<string, string> = {}
+    if (!selectedVillageId) newErrors.villageId = 'Vui lòng chọn thôn/xóm'
     if (!formData.code.trim()) newErrors.code = 'Vui lòng nhập số hộ khẩu'
     if (!formData.headName.trim()) newErrors.headName = 'Vui lòng nhập tên chủ hộ'
     if (!formData.address.trim()) newErrors.address = 'Vui lòng nhập địa chỉ'
@@ -50,23 +70,32 @@ export function HouseholdFormPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validate() || !villageId) return
+    if (!validate()) return
+
+    const targetVillageId = selectedVillageId
+    if (!targetVillageId) return
 
     try {
       if (isEditing && householdId) {
         await updateHousehold.mutateAsync({
-          villageId,
+          villageId: targetVillageId,
           id: householdId,
           ...formData,
         })
         navigate(`${basePath}/${householdId}`)
       } else {
         const newId = await createHousehold.mutateAsync({
-          villageId,
+          villageId: targetVillageId,
           ...formData,
           memberCount: 0,
         })
-        navigate(`${basePath}/${newId}`)
+        // If we created it from the generic page, maybe redirect to the village specific page?
+        // Or just the household detail
+        const redirectPath = villageId
+          ? `${basePath}/${newId}`
+          : `/admin/villages/${targetVillageId}/households/${newId}`
+
+        navigate(redirectPath)
       }
     } catch (error) {
       console.error('Failed to save household:', error)
@@ -122,6 +151,36 @@ export function HouseholdFormPage() {
 
         {/* Form */}
         <div className="bg-card rounded-xl border p-6 space-y-5">
+
+          {/* Village Selection (only if not pre-defined) */}
+          {!villageId && (
+            <div>
+              <label className="block text-sm font-medium mb-1.5">
+                Thôn / Xóm <span className="text-red-500">*</span>
+              </label>
+              <select
+                value={selectedVillageId}
+                onChange={(e) => setSelectedVillageId(e.target.value)}
+                className={cn(
+                  'w-full px-3 py-2.5 rounded-lg border bg-background',
+                  'focus:outline-none focus:ring-2 focus:ring-primary-500',
+                  errors.villageId && 'border-red-500'
+                )}
+                disabled={loadingVillages}
+              >
+                <option value="">-- Chọn thôn --</option>
+                {villages?.map((v) => (
+                  <option key={v.id} value={v.id}>
+                    {v.name}
+                  </option>
+                ))}
+              </select>
+              {errors.villageId && (
+                <p className="text-sm text-red-500 mt-1">{errors.villageId}</p>
+              )}
+            </div>
+          )}
+
           {/* Household Code */}
           <div>
             <label className="block text-sm font-medium mb-1.5">

@@ -1,10 +1,10 @@
 #!/bin/bash
 BASE_URL="${BASE_URL:-http://localhost:5173}"
-SCREENSHOTS_DIR="$(dirname $0)/../screenshots"
-SESSIONS_DIR="$(dirname $0)/../sessions"
+SCREENSHOTS_DIR="$(dirname "${BASH_SOURCE[0]}")/../screenshots"
+SESSIONS_DIR="$(dirname "${BASH_SOURCE[0]}")/../sessions"
 
 # Source authentication helpers
-source "$(dirname $0)/../lib/auth-helpers.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/../lib/auth-helpers.sh"
 
 # Helper: Run command with output
 ab() {

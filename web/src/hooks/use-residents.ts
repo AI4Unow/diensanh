@@ -16,6 +16,8 @@ import {
 import { db } from '@/config/firebase'
 import { encryptCCCD, decryptCCCD, hashCCCD } from '@/lib/encryption'
 import type { Resident } from '@/types'
+import { APP_CONFIG } from '@/config/app-config'
+import { MockStorage } from '@/lib/mock-storage'
 
 const RESIDENTS_KEY = ['residents']
 
@@ -26,6 +28,12 @@ export function useResidents(villageId: string | undefined, householdId: string 
   return useQuery({
     queryKey: [...RESIDENTS_KEY, villageId, householdId],
     queryFn: async () => {
+      // MOCK DATA INJECTION
+      if (APP_CONFIG.USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 500))
+        return MockStorage.getResidents(villageId, householdId)
+      }
+
       if (!villageId || !householdId) return []
       const q = query(
         collection(db, 'villages', villageId, 'households', householdId, 'residents'),
@@ -33,15 +41,18 @@ export function useResidents(villageId: string | undefined, householdId: string 
         orderBy('name')
       )
       const snapshot = await getDocs(q)
-      return snapshot.docs.map((doc) => ({
-        id: doc.id,
-        villageId,
-        householdId,
-        ...doc.data(),
-        birthDate: doc.data().birthDate?.toDate(),
-        createdAt: doc.data().createdAt?.toDate(),
-        updatedAt: doc.data().updatedAt?.toDate(),
-      })) as Resident[]
+      return snapshot.docs.map((doc) => {
+        const data = doc.data() as any
+        return {
+          id: doc.id,
+          villageId,
+          householdId,
+          ...data,
+          birthDate: data.birthDate?.toDate(),
+          createdAt: data.createdAt?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+        }
+      }) as Resident[]
     },
     enabled: !!villageId && !!householdId,
   })
@@ -59,6 +70,13 @@ export function useResident(
     queryKey: [...RESIDENTS_KEY, villageId, householdId, residentId],
     queryFn: async () => {
       if (!villageId || !householdId || !residentId) return null
+
+      // MOCK DATA INJECTION
+      if (APP_CONFIG.USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 300))
+        return MockStorage.getResident(residentId)
+      }
+
       const docRef = doc(
         db,
         'villages',
@@ -96,6 +114,28 @@ export function useCreateResident() {
 
   return useMutation({
     mutationFn: async ({ villageId, householdId, idNumber, ...data }: CreateResidentInput) => {
+      // MOCK DATA INJECTION
+      if (APP_CONFIG.USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 500))
+        const newResident: Resident = {
+          id: `res-${Date.now()}`,
+          villageId,
+          householdId,
+          ...data,
+          // For mock, we skip complex encryption simulation
+          idNumberHash: idNumber ? 'mock-hash' : undefined,
+          birthDate: data.birthDate, // Assuming date is passed correctly
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          isHead: data.isHead || false,
+          gender: data.gender || 'other',
+          relationship: data.relationship || '',
+          name: data.name || '',
+        }
+        MockStorage.createResident(newResident)
+        return newResident.id
+      }
+
       // Encrypt CCCD if provided
       let encryptedData = {}
       if (idNumber) {
@@ -158,6 +198,13 @@ export function useUpdateResident() {
 
   return useMutation({
     mutationFn: async ({ villageId, householdId, id, idNumber, ...data }: UpdateResidentInput) => {
+      // MOCK DATA INJECTION
+      if (APP_CONFIG.USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 300))
+        MockStorage.updateResident(id, data)
+        return
+      }
+
       // Encrypt CCCD if provided
       let encryptedData = {}
       if (idNumber) {
@@ -202,6 +249,13 @@ export function useDeleteResident() {
       householdId: string
       residentId: string
     }) => {
+      // MOCK DATA INJECTION
+      if (APP_CONFIG.USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 300))
+        MockStorage.deleteResident(residentId)
+        return
+      }
+
       const docRef = doc(db, 'villages', villageId, 'households', householdId, 'residents', residentId)
       await deleteDoc(docRef)
 
@@ -243,9 +297,9 @@ export function useSearchResidentByCCCD(cccd: string | undefined, villageId?: st
       // Note: This requires a collection group query
       const q = villageId
         ? query(
-            collection(db, 'villages', villageId, 'households'),
-            where('idNumberHash', '==', hash)
-          )
+          collection(db, 'villages', villageId, 'households'),
+          where('idNumberHash', '==', hash)
+        )
         : null // Collection group queries need special setup
 
       if (!q) return null
@@ -253,7 +307,7 @@ export function useSearchResidentByCCCD(cccd: string | undefined, villageId?: st
       const snapshot = await getDocs(q)
       if (snapshot.empty) return null
 
-      return snapshot.docs[0].data()
+      return snapshot.docs[0].data() as any
     },
     enabled: !!cccd,
   })

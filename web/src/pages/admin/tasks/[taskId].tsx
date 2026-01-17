@@ -7,6 +7,7 @@ import {
 import { AdminLayout } from '@/components/layout/admin-layout'
 import { useTask, useUpdateTask, useDeleteTask } from '@/hooks/use-tasks'
 import { useVillages } from '@/hooks/use-villages'
+import { useAuth } from '@/hooks/use-auth'
 import { cn } from '@/lib/utils'
 import type { TaskStatus, TaskPriority } from '@/types'
 
@@ -33,11 +34,15 @@ const typeLabels: Record<string, string> = {
 export function TaskDetailPage() {
   const { taskId } = useParams<{ taskId: string }>()
   const navigate = useNavigate()
+  const { userDoc } = useAuth()
   const { data: task, isLoading } = useTask(taskId)
   const { data: villages } = useVillages()
   const updateTask = useUpdateTask()
   const deleteTask = useDeleteTask()
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+
+  const isVillageLeader = userDoc?.role === 'village_leader'
+  const backLink = isVillageLeader ? '/village/tasks' : '/admin/tasks'
 
   const handleStatusChange = async (newStatus: TaskStatus) => {
     if (!taskId) return
@@ -51,7 +56,7 @@ export function TaskDetailPage() {
   const handleDelete = async () => {
     if (!taskId) return
     await deleteTask.mutateAsync(taskId)
-    navigate('/admin/tasks')
+    navigate(backLink)
   }
 
   const assignedVillages = villages?.filter((v) => task?.assignedTo.includes(v.id)) || []
@@ -74,7 +79,7 @@ export function TaskDetailPage() {
       <AdminLayout>
         <div className="text-center py-12">
           <p className="text-muted-foreground">Không tìm thấy công việc</p>
-          <Link to="/admin/tasks" className="text-primary-600 hover:underline mt-2 inline-block">
+          <Link to={backLink} className="text-primary-600 hover:underline mt-2 inline-block">
             Quay lại danh sách
           </Link>
         </div>
@@ -90,7 +95,7 @@ export function TaskDetailPage() {
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center gap-4">
-          <Link to="/admin/tasks" className="p-2 hover:bg-muted rounded-lg transition-colors">
+          <Link to={backLink} className="p-2 hover:bg-muted rounded-lg transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div className="flex-1">

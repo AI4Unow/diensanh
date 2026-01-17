@@ -6,6 +6,7 @@ import {
 } from 'lucide-react'
 import { AdminLayout } from '@/components/layout/admin-layout'
 import { useTasks, useTaskStats } from '@/hooks/use-tasks'
+import { useAuth } from '@/hooks/use-auth'
 import { cn } from '@/lib/utils'
 import type { Task, TaskStatus, TaskPriority } from '@/types'
 
@@ -30,7 +31,12 @@ const typeLabels: Record<Task['type'], string> = {
 }
 
 export function TasksPage() {
-  const { data: tasks, isLoading } = useTasks()
+  const { userDoc } = useAuth()
+  const isVillageLeader = userDoc?.role === 'village_leader'
+
+  const { data: tasks, isLoading } = useTasks(
+    isVillageLeader ? { villageId: userDoc.villageId } : undefined
+  )
   const { data: stats } = useTaskStats()
   const [statusFilter, setStatusFilter] = useState<TaskStatus | 'all'>('all')
 
@@ -45,18 +51,22 @@ export function TasksPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold">Quản lý công việc</h1>
-            <p className="text-muted-foreground">Giao việc cho các thôn</p>
+            <p className="text-muted-foreground">
+              {isVillageLeader ? 'Công việc được giao' : 'Giao việc cho các thôn'}
+            </p>
           </div>
-          <Link
-            to="/admin/tasks/new"
-            className={cn(
-              'flex items-center gap-2 px-4 py-2 rounded-lg',
-              'bg-primary-600 text-white hover:bg-primary-700 transition-colors'
-            )}
-          >
-            <Plus className="w-4 h-4" />
-            Tạo công việc
-          </Link>
+          {!isVillageLeader && (
+            <Link
+              to="/admin/tasks/new"
+              className={cn(
+                'flex items-center gap-2 px-4 py-2 rounded-lg',
+                'bg-primary-600 text-white hover:bg-primary-700 transition-colors'
+              )}
+            >
+              <Plus className="w-4 h-4" />
+              Tạo công việc
+            </Link>
+          )}
         </div>
 
         {/* Stats */}
@@ -133,7 +143,7 @@ export function TasksPage() {
                 Chưa có công việc nào
               </div>
             ) : (
-              filteredTasks?.map((task) => <TaskRow key={task.id} task={task} />)
+              filteredTasks?.map((task) => <TaskRow key={task.id} task={task} isVillageLeader={isVillageLeader} />)
             )}
           </div>
         </div>
@@ -176,7 +186,7 @@ function StatCard({
   )
 }
 
-function TaskRow({ task }: { task: Task }) {
+function TaskRow({ task, isVillageLeader }: { task: Task; isVillageLeader?: boolean }) {
   const status = statusConfig[task.status]
   const priority = priorityConfig[task.priority]
   const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() &&
@@ -184,7 +194,7 @@ function TaskRow({ task }: { task: Task }) {
 
   return (
     <Link
-      to={`/admin/tasks/${task.id}`}
+      to={isVillageLeader ? `/village/tasks/${task.id}` : `/admin/tasks/${task.id}`}
       className="flex items-center justify-between p-4 hover:bg-muted/30 transition-colors"
     >
       <div className="flex-1 min-w-0">

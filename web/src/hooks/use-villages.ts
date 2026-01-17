@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { APP_CONFIG } from '@/config/app-config'
 import {
   collection,
   doc,
@@ -13,6 +14,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '@/config/firebase'
 import type { Village } from '@/types'
+import { MockStorage } from '@/lib/mock-storage'
 
 const VILLAGES_KEY = ['villages']
 
@@ -23,14 +25,25 @@ export function useVillages() {
   return useQuery({
     queryKey: VILLAGES_KEY,
     queryFn: async () => {
+      // MOCK DATA INJECTION FOR TESTING
+      // In a real scenario, checks would be more robust.
+      // For now, we return mocks to unblock UI testing.
+      if (APP_CONFIG.USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 500)) // simulate network
+        return MockStorage.getVillages()
+      }
+
       const q = query(collection(db, 'villages'), orderBy('region'), orderBy('name'))
       const snapshot = await getDocs(q)
-      return snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-        createdAt: doc.data().createdAt?.toDate(),
-        updatedAt: doc.data().updatedAt?.toDate(),
-      })) as Village[]
+      return snapshot.docs.map((doc) => {
+        const data = doc.data() as any
+        return {
+          id: doc.id,
+          ...data,
+          createdAt: data.createdAt?.toDate(),
+          updatedAt: data.updatedAt?.toDate(),
+        }
+      }) as Village[]
     },
   })
 }
@@ -43,6 +56,14 @@ export function useVillage(villageId: string | undefined) {
     queryKey: [...VILLAGES_KEY, villageId],
     queryFn: async () => {
       if (!villageId) return null
+
+      // MOCK DATA INJECTION
+      if (APP_CONFIG.USE_MOCK_DATA) {
+        await new Promise(resolve => setTimeout(resolve, 300))
+        const village = MockStorage.getVillage(villageId)
+        return village || null
+      }
+
       const docRef = doc(db, 'villages', villageId)
       const snapshot = await getDoc(docRef)
       if (!snapshot.exists()) return null

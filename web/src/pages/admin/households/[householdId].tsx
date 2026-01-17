@@ -9,20 +9,37 @@ import { cn } from '@/lib/utils'
 import type { Resident } from '@/types'
 
 export function HouseholdDetailPage() {
-  const { villageId, householdId } = useParams<{ villageId: string; householdId: string }>()
+  const params = useParams<{ villageId?: string; householdId: string }>()
+  const { householdId } = params
+  const villageIdParam = params.villageId
+
   const navigate = useNavigate()
-  const { data: household, isLoading } = useHousehold(villageId, householdId)
-  const { data: village } = useVillage(villageId)
-  const { data: residents } = useResidents(villageId, householdId)
+
+  // Use expanded useHousehold to fetch by ID if villageId is missing
+  const { data: household, isLoading } = useHousehold(villageIdParam, householdId)
+
+  // Use villageId from param OR from fetched household
+  const effectiveVillageId = villageIdParam || household?.villageId
+
+  const { data: village } = useVillage(effectiveVillageId)
+
+  // Only fetch residents if we have a villageId (from param or household)
+  const { data: residents } = useResidents(effectiveVillageId, householdId)
+
   const deleteHousehold = useDeleteHousehold()
   const [showDeleteModal, setShowDeleteModal] = useState(false)
 
-  const basePath = `/admin/villages/${villageId}/households`
+  const basePath = effectiveVillageId
+    ? `/admin/villages/${effectiveVillageId}/households`
+    : '/admin/households' // Fallback, though standard view should probably link to village context
+
+  // If we found the villageId, maybe update base path to be specific?
+  // Or keep it as is. For now, let's keep it simple.
 
   const handleDelete = async () => {
-    if (!householdId || !villageId) return
+    if (!householdId || !effectiveVillageId) return
     try {
-      await deleteHousehold.mutateAsync({ villageId, householdId })
+      await deleteHousehold.mutateAsync({ villageId: effectiveVillageId, householdId })
       navigate(basePath)
     } catch (error) {
       console.error('Failed to delete household:', error)
@@ -151,7 +168,7 @@ export function HouseholdDetailPage() {
               <ResidentRow
                 key={resident.id}
                 resident={resident}
-                villageId={villageId!}
+                villageId={effectiveVillageId!}
                 householdId={householdId!}
                 basePath={`${basePath}/${householdId}/residents`}
                 isHead={resident.id === household.headId}
