@@ -152,6 +152,68 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
             <p>Nếu chưa có tài khoản, hệ thống sẽ tự động tạo mới khi bạn đăng nhập lần đầu tiên.</p>
           </div>
         </form>
+
+        {import.meta.env.DEV && (
+          <div className="mt-8 pt-6 border-t">
+            <p className="text-center text-sm text-muted-foreground mb-4">
+              Chế độ Kiểm thử (Bỏ qua đăng nhập)
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.setItem('diensanh:testMode', 'true');
+                  localStorage.setItem('diensanh:userDoc', JSON.stringify({
+                    uid: 'village-leader-1',
+                    phone: '0900000001',
+                    displayName: 'Trưởng Thôn An Lợi',
+                    role: 'village_leader',
+                    villageId: 'village-1',
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                  }));
+                  localStorage.setItem('firebase:authUser:[DEFAULT]', JSON.stringify({
+                    uid: 'village-leader-1',
+                    phoneNumber: '0900000001',
+                    displayName: 'Trưởng Thôn An Lợi',
+                    emailVerified: false,
+                    isAnonymous: false
+                  }));
+                  window.location.href = '/village';
+                }}
+                className="px-4 py-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-lg text-sm font-medium transition-colors"
+              >
+                Trưởng thôn
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.setItem('diensanh:testMode', 'true');
+                  localStorage.setItem('diensanh:userDoc', JSON.stringify({
+                    uid: 'resident-1',
+                    phone: '0900000002',
+                    displayName: 'Nguyễn Văn A',
+                    role: 'resident',
+                    villageId: 'village-1',
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                  }));
+                  localStorage.setItem('firebase:authUser:[DEFAULT]', JSON.stringify({
+                    uid: 'resident-1',
+                    phoneNumber: '0900000002',
+                    displayName: 'Nguyễn Văn A',
+                    emailVerified: false,
+                    isAnonymous: false
+                  }));
+                  window.location.href = '/portal';
+                }}
+                className="px-4 py-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-lg text-sm font-medium transition-colors"
+              >
+                Người dân
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
