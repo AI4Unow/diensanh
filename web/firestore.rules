@@ -34,8 +34,8 @@ service cloud.firestore {
       allow read: if isAuthenticated() && request.auth.uid == userId;
       // Admins can read/write all users
       allow read, write: if isAdmin();
-      // Allow creating user doc on first login (for phone auth)
-      allow create: if isAuthenticated() && request.auth.uid == userId;
+      // Allow creating/updating user doc on login (for phone auth & lastLogin)
+      allow create, update: if isAuthenticated() && request.auth.uid == userId;
     }
 
     // Villages collection
@@ -76,19 +76,20 @@ service cloud.firestore {
     match /tasks/{taskId} {
       // Admins can read all tasks
       allow read: if isAdmin();
-      // Village leaders can read tasks assigned to them
+      // Village leaders can read tasks assigned to their village
+      // assignedTo is an array of villageIds
       allow read: if isVillageLeader() &&
-        resource.data.assignedTo == request.auth.uid;
-      // Village leaders can read tasks for their village
-      allow read: if isVillageLeader() &&
-        resource.data.villageId == getUserDoc().villageId;
+        (getUserDoc().villageId in resource.data.assignedTo);
+      
       // Only admins can create/delete tasks
       allow create, delete: if isAdmin();
+      
       // Admins can update any task
       allow update: if isAdmin();
-      // Village leaders can update tasks assigned to them (status, notes)
+      
+      // Village leaders can update tasks assigned to their village (status, notes)
       allow update: if isVillageLeader() &&
-        resource.data.assignedTo == request.auth.uid;
+        (getUserDoc().villageId in resource.data.assignedTo);
     }
 
     // SMS logs collection

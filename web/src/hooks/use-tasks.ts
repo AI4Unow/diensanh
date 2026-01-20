@@ -12,6 +12,7 @@ import {
   orderBy,
   where,
   serverTimestamp,
+  type QueryConstraint,
 } from 'firebase/firestore'
 import { db } from '@/config/firebase'
 import type { Task, TaskStatus, TaskPriority } from '@/types'
@@ -51,23 +52,17 @@ export function useTasks(options?: { status?: TaskStatus; villageId?: string }) 
         }))
       }
 
-      let q = query(collection(db, 'tasks'), orderBy('createdAt', 'desc'))
+      let constraints: QueryConstraint[] = [orderBy('createdAt', 'desc')];
 
       if (options && options.status) {
-        q = query(
-          collection(db, 'tasks'),
-          where('status', '==', options.status),
-          orderBy('createdAt', 'desc')
-        )
+        constraints.push(where('status', '==', options.status));
       }
 
       if (options && options.villageId) {
-        q = query(
-          collection(db, 'tasks'),
-          where('assignedTo', 'array-contains', options.villageId),
-          orderBy('createdAt', 'desc')
-        )
+        constraints.push(where('assignedTo', 'array-contains', options.villageId));
       }
+
+      const q = query(collection(db, 'tasks'), ...constraints);
 
       const snapshot = await getDocs(q)
       return snapshot.docs.map((doc) => {
