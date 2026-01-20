@@ -8,79 +8,121 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function getUserDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
     function isAdmin() {
-      return isAuthenticated() &&
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'commune_admin';
+      return isAuthenticated() && getUserDoc().role == 'commune_admin';
     }
 
-    function isVillageLeader(villageId) {
-      let user = get(/databases/$(database)/documents/users/$(request.auth.uid));
-      return user.data.role == 'village_leader' && user.data.villageId == villageId;
+    function isVillageLeader() {
+      return isAuthenticated() && getUserDoc().role == 'village_leader';
     }
 
-    function isAdminOrVillageLeader(villageId) {
-      return isAdmin() || isVillageLeader(villageId);
+    function isVillageLeaderOf(villageId) {
+      return isVillageLeader() && getUserDoc().villageId == villageId;
+    }
+
+    function isAdminOrVillageLeaderOf(villageId) {
+      return isAdmin() || isVillageLeaderOf(villageId);
     }
 
     // Users collection
     match /users/{userId} {
-      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
-      allow create: if isAuthenticated() && request.auth.uid == userId;
-      allow update: if isAdmin() || request.auth.uid == userId;
-      allow delete: if isAdmin();
+      // Users can read their own document
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      // Admins can read/write all users
+      allow read, write: if isAdmin();
+      // Allow creating/updating user doc on login (for phone auth & lastLogin)
+      allow create, update: if isAuthenticated() && request.auth.uid == userId;
     }
 
     // Villages collection
     match /villages/{villageId} {
+      // Anyone authenticated can read villages
       allow read: if isAuthenticated();
+      // Only admins can create/update/delete villages
       allow write: if isAdmin();
 
       // Households subcollection
       match /households/{householdId} {
-        allow read: if isAdminOrVillageLeader(villageId);
-        allow write: if isAdminOrVillageLeader(villageId);
+        // Admins and village leaders of this village can read
+        allow read: if isAdminOrVillageLeaderOf(villageId);
+        // Admins can write, village leaders can update
+        allow create, delete: if isAdmin();
+        allow update: if isAdminOrVillageLeaderOf(villageId);
 
         // Residents subcollection
         match /residents/{residentId} {
-          allow read: if isAdminOrVillageLeader(villageId);
-          allow write: if isAdminOrVillageLeader(villageId);
+          // Admins and village leaders of this village can read
+          allow read: if isAdminOrVillageLeaderOf(villageId);
+          // Admins can write, village leaders can update
+          allow create, delete: if isAdmin();
+          allow update: if isAdminOrVillageLeaderOf(villageId);
         }
       }
     }
 
+    // Announcements collection (public read)
+    match /announcements/{announcementId} {
+      // Anyone can read announcements (public portal)
+      allow read: if true;
+      // Only admins can write
+      allow write: if isAdmin();
+    }
+
     // Tasks collection
     match /tasks/{taskId} {
-      allow read: if isAuthenticated();
-      allow create: if isAdmin();
-      allow update: if isAdmin() ||
-        (resource.data.assignedTo.hasAny([get(/databases/$(database)/documents/users/$(request.auth.uid)).data.villageId]));
-      allow delete: if isAdmin();
-
-      match /reports/{reportId} {
-        allow read: if isAuthenticated();
-        allow create: if isAuthenticated();
-        allow update, delete: if isAdmin() || request.auth.uid == resource.data.submittedBy;
-      }
-    }
-
-    // Messages - admin only (SMS feature restricted to commune_admin)
-    match /messages/{messageId} {
+      // Admins can read all tasks
       allow read: if isAdmin();
-      allow write: if isAdmin();
-    }
-
-    // Requests - public can submit
-    match /requests/{requestId} {
-      allow read: if isAdmin() || request.auth.uid == resource.data.submittedBy;
-      allow create: if true;
+      // Village leaders can read tasks assigned to their village
+      // assignedTo is an array of villageIds
+      allow read: if isVillageLeader() &&
+        (getUserDoc().villageId in resource.data.assignedTo);
+      
+      // Only admins can create/delete tasks
+      allow create, delete: if isAdmin();
+      
+      // Admins can update any task
       allow update: if isAdmin();
-      allow delete: if isAdmin();
+      
+      // Village leaders can update tasks assigned to their village (status, notes)
+      allow update: if isVillageLeader() &&
+        (getUserDoc().villageId in resource.data.assignedTo);
     }
 
-    // Announcements
-    match /announcements/{announcementId} {
-      allow read: if resource.data.isPublished == true || isAdmin();
-      allow write: if isAdmin();
+    // SMS logs collection
+    match /sms_logs/{logId} {
+      // Only admins can read/write SMS logs
+      allow read, write: if isAdmin();
+    }
+
+    // Requests collection (citizen requests)
+    match /requests/{requestId} {
+      // Anyone can create a request (public portal)
+      allow create: if true;
+      // Admins can read all requests
+      allow read: if isAdmin();
+      // Village leaders can read requests for their village
+      allow read: if isVillageLeader() &&
+        resource.data.villageId == getUserDoc().villageId;
+      // Only admins can update/delete requests
+      allow update, delete: if isAdmin();
+    }
+
+    // Statistics collection (cached stats)
+    match /statistics/{statId} {
+      // Admins can read/write stats
+      allow read, write: if isAdmin();
+      // Village leaders can read stats for their village
+      allow read: if isVillageLeader() &&
+        resource.data.villageId == getUserDoc().villageId;
+    }
+
+    // Deny all other access by default
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }
