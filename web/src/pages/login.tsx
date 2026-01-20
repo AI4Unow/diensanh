@@ -9,12 +9,16 @@ export function LoginPage() {
 
   useEffect(() => {
     if (!loading && user && userDoc) {
+      console.log('[Login Redirect] Checking user role:', userDoc.role, userDoc)
       // Redirect based on role
       if (userDoc.role === 'commune_admin') {
+        console.log('[Login Redirect] Redirecting to /admin')
         navigate('/admin')
       } else if (userDoc.role === 'village_leader') {
+        console.log('[Login Redirect] Redirecting to /village')
         navigate('/village')
       } else {
+        console.log('[Login Redirect] Redirecting to /portal')
         navigate('/portal')
       }
     }

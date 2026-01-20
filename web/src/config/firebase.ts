@@ -15,12 +15,12 @@ import {
 
 // Firebase configuration from environment variables
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyD7X1EJmzjEeWx2kuLTTH-UbOAxT5YMOII",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "diensanh-45eb1.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "diensanh-45eb1",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "diensanh-45eb1.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "847174741608",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:847174741608:web:86df47e099a0cc231f95dd",
 }
 
 // Initialize Firebase
