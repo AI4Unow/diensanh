@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useState, useEffect, type FormEvent } from 'react'
 import { cn } from '@/lib/utils'
 import { Spinner } from '@/components/ui/spinner'
 import { NationalEmblem } from '@/components/ui/national-emblem'
@@ -6,7 +6,7 @@ import { useLoginMutation } from '../../hooks/use-auth-mutations'
 import { Eye, EyeOff } from 'lucide-react'
 
 interface LoginFormProps {
-  onSuccess?: () => void
+  onSuccess?: (data?: any) => void
 }
 
 const getErrorMessage = (error: string) => {
@@ -31,6 +31,24 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
 
   const loginMutation = useLoginMutation()
 
+  useEffect(() => {
+    // Clear any residual test state or ghost sessions on mount
+    // This ensures that when a user lands on the login page, they are starting fresh
+    // and not picking up a previous session (e.g. from a test run or different user)
+    const keysToRemove = [
+      'diensanh:testMode',
+      'diensanh:userDoc',
+      'firebase:authUser:[DEFAULT]'
+    ]
+
+    keysToRemove.forEach(key => localStorage.removeItem(key))
+
+    // Also clear sessionStorage just in case
+    sessionStorage.clear()
+
+    console.log('[LoginForm] Cleaned up residual storage session')
+  }, [])
+
   const loading = loginMutation.isPending
   const rawError = loginMutation.error?.message
   const error = rawError ? getErrorMessage(rawError) : null
@@ -44,8 +62,8 @@ export function LoginForm({ onSuccess }: LoginFormProps) {
     localStorage.removeItem('firebase:authUser:[DEFAULT]')
 
     try {
-      await loginMutation.mutateAsync({ phone, pass: password })
-      onSuccess?.()
+      const result = await loginMutation.mutateAsync({ phone, pass: password })
+      onSuccess?.(result)
     } catch (err) {
       console.error('Login failed:', err)
     }

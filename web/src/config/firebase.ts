@@ -14,6 +14,7 @@ import {
 } from 'firebase/firestore'
 
 // Firebase configuration from environment variables
+// Using diensanh-45eb1 project
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyD7X1EJmzjEeWx2kuLTTH-UbOAxT5YMOII",
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "diensanh-45eb1.firebaseapp.com",

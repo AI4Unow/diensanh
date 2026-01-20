@@ -84,7 +84,7 @@ export function useLoginMutation() {
         )
       }
 
-      return user
+      return { user, userDoc: userSnap.exists() ? userSnap.data() : null }
     },
   })
 }

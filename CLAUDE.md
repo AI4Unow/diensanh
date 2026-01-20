@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is a Firebase-based project (`diensanh`) using a React + TypeScript + Vite frontend (`web/` directory) and Python-based data/analytics backend components.
 
 ## Environment & Tools
-- **Project IDs**: `diensanh-37701` (Active) or `diensanh-45eb1` (Service Account)
+- **Project ID**: `diensanh-45eb1`
 - **Frontend**: React 19, TypeScript 5.9, Vite 7, Tailwind CSS 4, Zustand, TanStack Query
 - **Backend/Data**: Python 3.14 (in `src/` and `venv`), Firebase (Firestore, etc.)
 - **Hosting**: Vercel (frontend), Firebase (backend services)

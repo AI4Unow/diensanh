@@ -1,31 +1,30 @@
 import { LoginForm } from '@/components/auth/login-form'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/use-auth'
-import { useEffect } from 'react'
-
 export function LoginPage() {
   const navigate = useNavigate()
-  const { user, userDoc, loading } = useAuth()
+  const { loading } = useAuth()
 
-  useEffect(() => {
-    if (!loading && user && userDoc) {
-      console.log('[Login Redirect] Checking user role:', userDoc.role, userDoc)
-      // Redirect based on role
-      if (userDoc.role === 'commune_admin') {
-        console.log('[Login Redirect] Redirecting to /admin')
+  // Auto-redirect removed to prevent race conditions with session cleanup.
+  // Navigation is now handled by handleSuccess after explicit login.
+
+  const handleSuccess = (data: any) => {
+    // Auth context will handle redirect - BUT we do it manually here to ensure immediate feedback
+    // data contains { user, userDoc } from useLoginMutation
+    if (data?.userDoc) {
+      const role = data.userDoc.role
+      console.log('[Login Success] Redirecting based on role:', role)
+      if (role === 'commune_admin') {
         navigate('/admin')
-      } else if (userDoc.role === 'village_leader') {
-        console.log('[Login Redirect] Redirecting to /village')
+      } else if (role === 'village_leader') {
         navigate('/village')
       } else {
-        console.log('[Login Redirect] Redirecting to /portal')
         navigate('/portal')
       }
+    } else {
+      // Fallback if no doc (new user?) -> Portal
+      navigate('/portal')
     }
-  }, [user, userDoc, loading, navigate])
-
-  const handleSuccess = () => {
-    // Auth context will handle redirect
   }
 
   if (loading) {
